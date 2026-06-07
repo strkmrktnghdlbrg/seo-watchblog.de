@@ -1,0 +1,138 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { photos } from '../../data/photos';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', (e) => !e.data.draft);
+  return articles.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const sectionLabels: Record<string, string> = {
+  'seo-wissen': 'SEO-Wissen',
+  'watchblog': 'Watchblog',
+  'ratgeber': 'Ratgeber',
+};
+const sectionHrefs: Record<string, string> = {
+  'seo-wissen': '/seo-wissen/',
+  'watchblog': '/watchblog/',
+  'ratgeber': '/ratgeber/',
+};
+
+const section = entry.data.section;
+const crumbs = [
+  { label: 'Home', href: '/' },
+  { label: sectionLabels[section] ?? section, href: sectionHrefs[section] },
+];
+if (section === 'seo-wissen' && entry.data.cluster) {
+  crumbs.push({ label: 'Cluster', href: `/seo-wissen/${entry.data.cluster}/` });
+}
+crumbs.push({ label: entry.data.title });
+
+// Datum auf Deutsch formatieren
+function formatDate(d: string): string {
+  const date = new Date(d);
+  if (isNaN(date.getTime())) return d;
+  return date.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
+}
+const metaParts = [formatDate(entry.data.date), entry.data.readingTime].filter(Boolean);
+
+// Hero-Foto: 1. image-Frontmatter, 2. photos-Registry.
+const heroPhoto = entry.data.image ?? photos[entry.id]?.url;
+const heroCredit = entry.data.imageCredit ?? photos[entry.id]?.credit;
+
+// Passende Tools laden
+const relatedTools = (
+  await Promise.all(
+    (entry.data.relatedTools ?? []).map((slug) => getEntry('tools', slug))
+  )
+).filter(Boolean);
+---
+<BaseLayout title={`${entry.data.title} | SEO Watchblog`} description={entry.data.excerpt}>
+  <div class="wrap">
+    <Breadcrumb items={crumbs} />
+    <div class="page-head">
+      <span class="eyebrow">{sectionLabels[section] ?? section}{entry.data.cluster ? ` · ${entry.data.cluster}` : ''}</span>
+      <h1>{entry.data.title}</h1>
+      <div class="art-meta">{metaParts.join(' · ')}</div>
+    </div>
+  </div>
+
+  {heroPhoto && (
+    <div class="wrap">
+      <figure class="art-hero">
+        <img src={heroPhoto} alt={entry.data.title} loading="eager" />
+        {heroCredit && <figcaption>{heroCredit}</figcaption>}
+      </figure>
+    </div>
+  )}
+
+  <section class="wrap">
+    <div class="split">
+      <div>
+        <article class="prose">
+          <Content />
+        </article>
+      </div>
+
+      <aside>
+        {relatedTools.length > 0 && (
+          <div class="side-card tools-box">
+            <h4>Passende Tools</h4>
+            {relatedTools.map((tool: any) => (
+              <a class="tool-pick" href={`/tools/review/${tool.id}/`}>
+                <span class={`logo-tile ${tool.data.gradient}`}>{tool.data.shortName}</span>
+                <span class="tp-body">
+                  <strong>{tool.data.name}</strong>
+                  <span class="tp-cat">{tool.data.category}</span>
+                  <span class="tp-score">{tool.data.scoreOverall.toFixed(1)} / 5.0</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        )}
+        <div class="side-card" style="margin-top:18px;">
+          <h4>Mehr aus dem {sectionLabels[section]}</h4>
+          <p style="font-size:14px;color:#5a524d;line-height:1.6;">
+            Alle Beiträge findest du in der Übersicht.
+            <a href={sectionHrefs[section]} style="color:var(--color-action-azure);">Zur Übersicht →</a>
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <style>
+    .art-meta { font-size: 14px; color: var(--color-stone-gray); }
+    .art-hero { margin: 0 0 8px; }
+    .art-hero img {
+      width: 100%; max-height: 420px; object-fit: cover;
+      border-radius: var(--radius-cards); box-shadow: var(--shadow-subtle); display: block;
+    }
+    .art-hero figcaption {
+      font-size: 12px; color: var(--color-stone-gray); margin-top: 8px; text-align: right;
+    }
+    .tools-box .tool-pick {
+      display: flex; gap: 12px; align-items: center; padding: 12px 0;
+      border-bottom: 1px solid var(--color-distant-sky); transition: opacity .15s;
+    }
+    .tools-box .tool-pick:last-of-type { border-bottom: none; }
+    .tools-box .tool-pick:hover { opacity: .82; }
+    .tools-box .logo-tile {
+      width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif); font-size: 18px;
+    }
+    .tools-box .tp-body { display: flex; flex-direction: column; }
+    .tools-box .tp-body strong { font-family: var(--font-serif); font-weight: 400; font-size: 17px; }
+    .tools-box .tp-cat { font-size: 12px; color: var(--color-stone-gray); }
+    .tools-box .tp-score { font-size: 13px; color: var(--color-action-azure); font-weight: 600; }
+  </style>
+</BaseLayout>

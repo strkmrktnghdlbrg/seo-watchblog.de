@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const hubs = [
+  { title: 'SEO-Software', url: '/tools/seo-software/', gradient: 'g1', desc: 'All-in-One-Suiten und Spezial-Tools im Test.' },
+  { title: 'Hosting & Speed', url: '/tools/hosting-speed/', gradient: 'g3', desc: 'Schnelle Hoster für bessere Core Web Vitals.' },
+  { title: 'WordPress-Plugins', url: '/tools/wordpress-plugins/', gradient: 'g5', desc: 'Die wichtigsten Plugins für SEO und Performance.' },
+  { title: 'SEO-Kurse', url: '/tools/seo-kurse/', gradient: 'g6', desc: 'Lernangebote, um SEO von Grund auf zu verstehen.' },
+];
+---
+
+<BaseLayout
+  title="Seite nicht gefunden - SEO Watchblog"
+  description="Diese Seite existiert nicht mehr oder wurde verschoben."
+>
+  <section class="wrap notfound">
+    <span class="code">404</span>
+    <h1>Diese Seite gibt es nicht (mehr)</h1>
+    <p class="intro">Vielleicht wurde der Inhalt verschoben oder der Link enthält einen Tippfehler. Probiere die Suche oder starte direkt in einem unserer Vergleichs-Hubs.</p>
+    <div class="cta-row">
+      <a class="btn btn-azure" href="/">Zur Startseite</a>
+      <a class="btn btn-ghost" href="/suche/">Suche öffnen</a>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="sec-head"><div><h2>Beliebte Bereiche</h2></div></div>
+    <div class="alt-grid">
+      {hubs.map((h) => (
+        <a class="alt-card" href={h.url}>
+          <div class={`logo-tile ${h.gradient}`}></div>
+          <h4>{h.title}</h4>
+          <p>{h.desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <style>
+    section { padding: 40px 0; }
+    .notfound { padding: 80px 0 24px; text-align: center; }
+    .notfound .code { font-family: var(--font-serif); font-size: clamp(64px, 12vw, 120px); line-height: 1; color: var(--color-distant-sky); display: block; margin-bottom: 8px; }
+    .notfound h1 { font-size: clamp(30px, 4.5vw, 44px); letter-spacing: -1px; margin-bottom: 16px; }
+    .notfound .intro { font-size: 18px; color: #4a423d; max-width: 560px; margin: 0 auto 28px; line-height: 1.55; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .sec-head { margin-bottom: 24px; }
+    .sec-head h2 { font-size: clamp(26px, 3.5vw, 34px); letter-spacing: -0.7px; }
+
+    .alt-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .alt-card { background: var(--color-snow); border-radius: var(--radius-cards); padding: 20px; box-shadow: var(--shadow-subtle); transition: transform .15s, box-shadow .15s; }
+    .alt-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .alt-card .logo-tile { width: 42px; height: 42px; border-radius: 12px; margin-bottom: 12px; }
+    .alt-card h4 { font-family: var(--font-serif); font-size: 18px; margin: 0 0 6px; }
+    .alt-card p { font-size: 14px; color: #5a524d; line-height: 1.55; }
+
+    @media (max-width: 1000px) {
+      .alt-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .alt-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</BaseLayout>

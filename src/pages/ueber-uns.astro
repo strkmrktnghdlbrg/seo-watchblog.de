@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const team = [
+  {
+    initials: 'JM',
+    gradient: 'g1',
+    name: 'Jana Merten',
+    role: 'Chefredaktion & SEO-Strategie',
+    bio: 'Jana arbeitet seit über zehn Jahren im Online-Marketing und betreut Tests für SEO-Suiten und Tracking-Tools. Sie verantwortet die redaktionelle Linie und die Testmethodik.',
+  },
+  {
+    initials: 'TK',
+    gradient: 'g3',
+    name: 'Tobias Krenz',
+    role: 'Technik & Hosting',
+    bio: 'Tobias prüft Hosting-Pakete, Ladezeiten und WordPress-Plugins. Sein Schwerpunkt liegt auf Core Web Vitals und technischer Suchmaschinenoptimierung.',
+  },
+  {
+    initials: 'LF',
+    gradient: 'g5',
+    name: 'Lea Forster',
+    role: 'Content & Ratgeber',
+    bio: 'Lea schreibt die Grundlagen-Artikel und Ratgeber. Sie sorgt dafür, dass auch komplexe SEO-Themen verständlich und ohne Marketing-Floskeln erklärt werden.',
+  },
+];
+
+const criteria = [
+  {
+    name: 'Funktionsumfang',
+    text: 'Wie viele relevante Aufgaben deckt das Tool ab? Wir prüfen, ob Keyword-Recherche, Wettbewerbsanalyse, Rank-Tracking und Content-Funktionen vorhanden und sinnvoll verzahnt sind.',
+  },
+  {
+    name: 'Datenqualität',
+    text: 'Wie verlässlich sind die ausgespielten Zahlen? Wir vergleichen Keyword-Volumina, Index-Größe und Aktualität mit anderen Quellen und mit unseren eigenen Erfahrungswerten.',
+  },
+  {
+    name: 'Bedienung',
+    text: 'Wie schnell findet man sich zurecht? Bewertet werden Aufbau der Oberfläche, Lernkurve und ob sich wiederkehrende Aufgaben effizient erledigen lassen.',
+  },
+  {
+    name: 'Preis-Leistung',
+    text: 'Steht der Preis im Verhältnis zum Nutzen? Wir setzen den Funktionsumfang ins Verhältnis zu den Tarifkosten und benennen, für welche Zielgruppe sich die Investition lohnt.',
+  },
+  {
+    name: 'Support',
+    text: 'Wie gut ist die Hilfe bei Problemen? Wir berücksichtigen Erreichbarkeit, Reaktionszeit, Dokumentation und das Angebot deutschsprachiger Unterstützung.',
+  },
+];
+---
+
+<BaseLayout
+  title="Über uns - SEO Watchblog"
+  description="Wer hinter SEO Watchblog steht, wie unsere Redaktion arbeitet und nach welchen fünf Kriterien wir SEO-Tools testen."
+>
+  <div class="wrap">
+    <div class="crumb"><a href="/">Home</a> › <span>Über uns</span></div>
+  </div>
+
+  <section class="wrap page-head">
+    <span class="eyebrow">Redaktion & Methodik</span>
+    <h1>Unabhängige Tests, nachvollziehbar gemacht</h1>
+    <p class="intro">SEO Watchblog testet SEO-Software, Hosting und WordPress-Plugins und erklärt, wie man sie richtig einsetzt. Hier erfährst du, wer dahintersteckt, wie wir vorgehen und wie wir uns finanzieren.</p>
+  </section>
+
+  <section class="wrap">
+    <div class="prose">
+      <h2>Unsere Mission</h2>
+      <p>Der Markt für SEO-Tools ist unübersichtlich, und viele Vergleichsseiten empfehlen vor allem das, was die höchste Provision zahlt. Wir gehen anders vor: Wir testen jedes Tool nach denselben fünf Kriterien, dokumentieren das Ergebnis transparent und sagen klar, für wen sich ein Produkt lohnt und für wen nicht.</p>
+      <p>Unser Ziel ist es, dass du nach dem Lesen eine fundierte Entscheidung treffen kannst, ohne erst zehn Anbieter selbst durchprobieren zu müssen. Wir verkaufen keine Tools, wir bewerten sie.</p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="sec-head"><div><h2>Die Redaktion</h2><p>Ein kleines Team mit Praxiserfahrung in SEO, Technik und Redaktion.</p></div></div>
+    <div class="team-grid">
+      {team.map((m) => (
+        <article class="team-card">
+          <div class={`logo-tile ${m.gradient}`}>{m.initials}</div>
+          <h3>{m.name}</h3>
+          <div class="role">{m.role}</div>
+          <p>{m.bio}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="sec-head"><div><h2>So testen wir</h2><p>Jedes Tool durchläuft dieselben fünf Kriterien. Daraus bildet sich der Gesamt-Score von 0 bis 5.</p></div></div>
+    <div class="crit-list">
+      {criteria.map((c, i) => (
+        <article class="crit-card">
+          <span class="crit-num">{i + 1}</span>
+          <div>
+            <h4>{c.name}</h4>
+            <p>{c.text}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="prose">
+      <h2>Transparenz & Affiliate-Hinweis</h2>
+      <p>Einige Links auf dieser Seite sind Affiliate-Links. Wenn du über einen solchen Link ein Tool kaufst oder abonnierst, erhalten wir unter Umständen eine Provision. Für dich entstehen dadurch keine Mehrkosten.</p>
+      <p>Diese Provisionen finanzieren unsere Arbeit, beeinflussen aber weder unsere Bewertungen noch unsere Reihenfolgen. Ein Tool wird nicht besser bewertet, weil es mehr zahlt. Wo wir Schwächen sehen, benennen wir sie - auch bei Partnern, mit denen wir ein Affiliate-Verhältnis haben.</p>
+    </div>
+  </section>
+
+  <style>
+    .crumb { font-size: 13px; color: var(--color-stone-gray); padding: 26px 0 0; }
+    .crumb a:hover { color: var(--color-action-azure); }
+    .page-head { padding: 18px 0 32px; }
+    .page-head .eyebrow { display: inline-block; background: rgba(237,237,237,0.85); font-size: 13px; font-weight: 500; padding: 5px 13px; border-radius: 24px; margin-bottom: 16px; }
+    .page-head h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.05; letter-spacing: -1.4px; max-width: 820px; margin-bottom: 16px; }
+    .page-head p.intro { font-size: 18px; color: #4a423d; max-width: 680px; line-height: 1.55; }
+
+    section { padding: 40px 0; }
+    .sec-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 24px; gap: 16px; flex-wrap: wrap; }
+    .sec-head h2 { font-size: clamp(26px, 3.5vw, 34px); letter-spacing: -0.7px; }
+    .sec-head p { color: var(--color-stone-gray); font-size: 15px; margin-top: 6px; }
+
+    .prose { max-width: 720px; }
+    .prose p { font-size: 17px; line-height: 1.7; color: #2e2723; margin-bottom: 18px; }
+    .prose h2 { font-size: 30px; letter-spacing: -0.6px; margin: 0 0 14px; }
+
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .team-card { background: var(--color-snow); border-radius: var(--radius-cards); padding: 24px; box-shadow: var(--shadow-subtle); }
+    .team-card .logo-tile { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 22px; margin-bottom: 16px; }
+    .team-card h3 { font-size: 21px; letter-spacing: -0.3px; margin-bottom: 3px; }
+    .team-card .role { font-size: 13px; color: var(--color-action-azure); font-weight: 600; margin-bottom: 12px; }
+    .team-card p { font-size: 14px; color: #5a524d; line-height: 1.6; }
+
+    .crit-list { display: flex; flex-direction: column; gap: 16px; max-width: 860px; }
+    .crit-card { background: var(--color-snow); border-radius: var(--radius-cards); padding: 22px 24px; box-shadow: var(--shadow-subtle); display: grid; grid-template-columns: 48px 1fr; gap: 20px; align-items: start; }
+    .crit-num { font-family: var(--font-serif); font-size: 40px; color: var(--color-distant-sky); line-height: 1; text-align: center; }
+    .crit-card h4 { font-family: var(--font-serif); font-size: 20px; margin-bottom: 6px; }
+    .crit-card p { font-size: 15px; color: #4a423d; line-height: 1.6; }
+
+    @media (max-width: 1000px) {
+      .team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</BaseLayout>

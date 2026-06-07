@@ -1,0 +1,169 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SectionHead from '../../../components/SectionHead.astro';
+import ScoreBars from '../../../components/ScoreBars.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FaqList from '../../../components/FaqList.astro';
+
+export async function getStaticPaths() {
+  const tools = await getCollection('tools');
+  return tools.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry, tools },
+  }));
+}
+
+const { entry, tools } = Astro.props;
+const tool = entry.data;
+const { Content } = await render(entry);
+
+const full = Math.round(tool.scoreOverall);
+const stars = '★'.repeat(full) + '☆'.repeat(Math.max(0, 5 - full));
+const scoreFmt = tool.scoreOverall.toFixed(1);
+
+// Hub-Breadcrumb: bevorzugt den Hub der eigenen Kategorie, sonst ersten passenden
+const hubs = await getCollection('hubs');
+const parentHub =
+  hubs.find((h) => h.id === tool.categorySlug && h.data.toolSlugs.includes(entry.id)) ??
+  hubs.find((h) => h.data.toolSlugs.includes(entry.id));
+const hubCrumb = parentHub
+  ? { label: parentHub.data.title, href: `/tools/${parentHub.id}/` }
+  : { label: 'SEO-Tools', href: '/tools/' };
+
+// Alternativen auflösen
+const toolMap = new Map(tools.map((t) => [t.id, t]));
+const alternatives = tool.alternatives
+  .map((slug: string) => toolMap.get(slug))
+  .filter((t: any): t is NonNullable<typeof t> => Boolean(t));
+
+// Preis aufsplitten: "ab 139,95 €/Monat" → "139,95 €" + "/ Monat"
+---
+<BaseLayout title={`${tool.name} Test & Erfahrungen 2026 | SEO Watchblog`} description={tool.verdict}>
+
+  <div class="wrap">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, hubCrumb, { label: tool.name }]} />
+  </div>
+
+  <!-- REVIEW HERO -->
+  <section class="wrap" style="padding-top:24px;">
+    <div class="review-hero">
+      <div class="review-main">
+        <div class={`logo-tile ${tool.gradient}`}>{tool.shortName}</div>
+        <span class="eyebrow">Testbericht · {tool.updated ? `Aktualisiert ${new Date(tool.updated).toLocaleDateString('de-DE', { month: 'long', year: 'numeric' })}` : 'Aktualisiert Juni 2026'}</span>
+        <h1>{tool.name} Test & Erfahrungen</h1>
+        <p class="verdict">{tool.verdict}</p>
+      </div>
+      <aside class="cta-box">
+        <div class="score-big"><span class="n">{scoreFmt}</span><span class="o">/ 5.0</span></div>
+        <div class="stars">{stars}</div>
+        <div class="price-line">{tool.price}</div>
+        {tool.freeTrial && <div class="price-line">{tool.freeTrial}</div>}
+        <a class="btn btn-azure" href={tool.affiliateUrl} target="_blank" rel="nofollow sponsored noopener">Zu {tool.name} →</a>
+        <div class="disclaimer">Affiliate-Link · für dich kein Aufpreis</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SUB-SCORES -->
+  <section class="wrap">
+    <SectionHead title="Bewertung im Detail" subtitle={`So schneidet ${tool.name} in unseren fünf Testkriterien ab.`} />
+    <div class="split">
+      <ScoreBars subScores={tool.subScores} />
+      <aside class="side-card">
+        <h4>Auf einen Blick</h4>
+        <p style="font-size:14px;color:#5a524d;line-height:1.7;">
+          <b>Ideal für:</b> {tool.idealFor}<br />
+          {tool.lessFor && <><b>Weniger für:</b> {tool.lessFor}<br /></>}
+          <b>Kategorie:</b> {tool.category}<br />
+          <b>Gratis-Test:</b> {tool.freeTrial ?? 'Kein Gratis-Test'}
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PRO / CONTRA -->
+  <section class="wrap">
+    <ProsCons pros={tool.pros} cons={tool.cons} />
+  </section>
+
+  <!-- PROSE -->
+  <section class="wrap">
+    <div class="prose">
+      <Content />
+    </div>
+  </section>
+
+  <!-- ALTERNATIVES -->
+  {alternatives.length > 0 && (
+    <section class="wrap">
+      <SectionHead title={`Alternativen zu ${tool.name}`} linkHref={hubCrumb.href} linkLabel="Alle SEO-Tools" />
+      <div class="alt-grid">
+        {alternatives.map((alt: any) => (
+          <a class="alt-card" href={`/tools/review/${alt.id}/`}>
+            <div class={`logo-tile ${alt.data.gradient}`}>{alt.data.shortName}</div>
+            <h4>{alt.data.name}</h4>
+            <div class="s">{alt.data.scoreOverall.toFixed(1)} / 5.0</div>
+            <p style="font-size:14px;color:#5a524d;">{alt.data.idealFor}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ -->
+  {tool.faqs.length > 0 && (
+    <section class="wrap">
+      <SectionHead title={`Häufige Fragen zu ${tool.name}`} />
+      <FaqList faqs={tool.faqs} />
+    </section>
+  )}
+
+</BaseLayout>
+
+<style>
+  section.wrap { padding: 40px 24px; }
+
+  .review-hero { display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; }
+  .review-main .logo-tile { width: 66px; height: 66px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 28px; margin-bottom: 18px; }
+  .review-main .eyebrow { display: inline-block; background: rgba(237,237,237,0.85); font-size: 13px; font-weight: 500; padding: 5px 13px; border-radius: 24px; margin-bottom: 14px; }
+  .review-main h1 { font-size: clamp(32px, 4.5vw, 46px); letter-spacing: -1.2px; margin-bottom: 12px; }
+  .review-main .verdict { font-size: 18px; color: #4a423d; line-height: 1.6; }
+
+  .cta-box { background: var(--color-snow); border-radius: var(--radius-cards); box-shadow: var(--shadow-md); padding: 26px; position: sticky; top: 90px; }
+  .cta-box .score-big { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .cta-box .score-big .n { font-family: var(--font-serif); font-size: 52px; line-height: 1; }
+  .cta-box .score-big .o { font-size: 15px; color: var(--color-stone-gray); }
+  .cta-box .stars { color: var(--color-action-azure); font-size: 16px; letter-spacing: 3px; margin-bottom: 18px; }
+  .cta-box .price-line { font-size: 14px; color: #4a423d; margin-bottom: 6px; }
+  .cta-box .price-line b { font-family: var(--font-serif); font-weight: 400; font-size: 22px; }
+  .cta-box .btn-azure { width: 100%; margin: 16px 0 8px; padding: 13px; font-size: 16px; }
+  .cta-box .disclaimer { font-size: 12px; color: var(--color-stone-gray); text-align: center; }
+
+  .split { display: grid; grid-template-columns: 1fr 320px; gap: 36px; align-items: start; }
+  .side-card { background: var(--color-silver-mist); border-radius: var(--radius-cards); padding: 24px; }
+  .side-card h4 { font-family: var(--font-serif); font-size: 18px; margin-bottom: 14px; }
+
+  .prose { max-width: 720px; }
+  .prose :global(p) { font-size: 17px; line-height: 1.7; color: #2e2723; margin-bottom: 18px; }
+  .prose :global(h2) { font-size: 30px; letter-spacing: -0.6px; margin: 36px 0 14px; }
+  .prose :global(h3) { font-size: 22px; margin: 26px 0 10px; }
+  .prose :global(ul), .prose :global(ol) { margin: 0 0 18px 22px; }
+  .prose :global(li) { font-size: 17px; line-height: 1.7; color: #2e2723; margin-bottom: 6px; }
+  .prose :global(a) { color: var(--color-action-azure); }
+
+  .alt-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+  .alt-card { background: var(--color-snow); border-radius: var(--radius-cards); padding: 20px; box-shadow: var(--shadow-subtle); transition: transform .15s, box-shadow .15s; }
+  .alt-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .alt-card h4 { font-family: var(--font-serif); font-size: 18px; margin: 8px 0 4px; }
+  .alt-card .s { font-size: 13px; color: var(--color-action-azure); font-weight: 600; margin-bottom: 10px; }
+  .alt-card .logo-tile { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); }
+
+  @media (max-width: 1000px) {
+    .review-hero { grid-template-columns: 1fr; }
+    .cta-box { position: static; }
+    .split { grid-template-columns: 1fr; }
+    .alt-grid { grid-template-columns: 1fr; }
+  }
+</style>

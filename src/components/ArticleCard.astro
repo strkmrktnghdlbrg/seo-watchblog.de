@@ -1,0 +1,39 @@
+---
+import { photos } from '../data/photos';
+
+interface Props {
+  article: any;
+}
+const { article } = Astro.props;
+
+const tag = article.data.cluster ?? article.data.section;
+const grad = article.data.gradient ?? 'g3';
+const meta = [article.data.date, article.data.readingTime].filter(Boolean).join(' · ');
+const href = `/artikel/${article.id}/`;
+
+// Foto-Lookup: 1. image-Frontmatter, 2. photos-Registry, sonst Gradient-Tile.
+const photoUrl = article.data.image ?? photos[article.id]?.url;
+---
+<a class="article" href={href}>
+  <div class={`img ${grad}`}>
+    {photoUrl && <img src={photoUrl} alt={article.data.title} loading="lazy" />}
+    <span class="tag">{tag}</span>
+  </div>
+  <h3>{article.data.title}</h3>
+  <div class="meta">{meta}</div>
+</a>
+
+<style>
+  .article { display: block; transition: opacity .15s; }
+  .article:hover { opacity: .82; }
+  .article .img {
+    border-radius: var(--radius-images); height: 180px; margin-bottom: 14px; position: relative; overflow: hidden;
+  }
+  .article .img img { width: 100%; height: 100%; object-fit: cover; }
+  .article .tag {
+    position: absolute; bottom: 10px; left: 10px; background: rgba(255,255,255,0.92); color: var(--color-inkwell);
+    font-size: 12px; font-weight: 500; padding: 4px 11px; border-radius: 24px;
+  }
+  .article h3 { font-size: 21px; line-height: 1.2; letter-spacing: -0.4px; margin-bottom: 8px; }
+  .article .meta { font-size: 13px; color: var(--color-stone-gray); }
+</style>

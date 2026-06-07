@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import ToolCard from '../../components/ToolCard.astro';
+
+const allHubs = await getCollection('hubs');
+const allTools = await getCollection('tools');
+
+// Top-Tools nach scoreOverall
+const topTools = allTools
+  .sort((a, b) => b.data.scoreOverall - a.data.scoreOverall)
+  .slice(0, 4);
+
+// Hubs nach affiliateGroup gruppieren
+const groupMeta: Record<string, { label: string; sub: string }> = {
+  'seo-tools': { label: 'SEO-Software', sub: 'Suiten, Keyword-Tools, Rank-Tracker & Backlink-Checker.' },
+  'hosting': { label: 'Hosting & Speed', sub: 'Schnelles Hosting für bessere Core Web Vitals.' },
+  'plugins': { label: 'WordPress-Plugins', sub: 'SEO-, Caching- und Schema-Plugins im Test.' },
+  'kurse': { label: 'Kurse & Weiterbildung', sub: 'SEO-Onlinekurse und Coachings.' },
+};
+const groupOrder = ['seo-tools', 'hosting', 'plugins', 'kurse'];
+
+const grouped = groupOrder
+  .map((group) => ({
+    group,
+    meta: groupMeta[group],
+    hubs: allHubs
+      .filter((h) => h.data.affiliateGroup === group)
+      .sort((a, b) => a.data.title.localeCompare(b.data.title)),
+  }))
+  .filter((g) => g.hubs.length > 0);
+---
+<BaseLayout title="SEO-Tools im Vergleich 2026 | SEO Watchblog" description="Alle SEO-Tool-Vergleiche im Überblick: Software, Hosting, WordPress-Plugins und Kurse - unabhängig getestet nach transparenten Kriterien.">
+
+  <div class="wrap">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'SEO-Tools' }]} />
+    <div class="page-head">
+      <span class="eyebrow">Alle Vergleiche im Überblick</span>
+      <h1>SEO-Tools im Vergleich 2026</h1>
+      <p class="intro">Welche Software, welches Hosting, welche Plugins und Kurse bringen dich wirklich weiter? Hier findest du alle unsere unabhängigen Vergleiche - sortiert nach Einsatzbereich.</p>
+    </div>
+  </div>
+
+  {grouped.map((g) => (
+    <section class="wrap">
+      <SectionHead title={g.meta.label} subtitle={g.meta.sub} />
+      <div class="hub-grid">
+        {g.hubs.map((hub) => (
+          <a class="hub-card" href={`/tools/${hub.id}/`}>
+            <h3>{hub.data.title}</h3>
+            <p>{hub.data.intro}</p>
+            <div class="arrow">Zum Vergleich →</div>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section class="wrap">
+    <SectionHead title="Top SEO-Tools 2026" subtitle="Die vier höchstbewerteten Tools über alle Kategorien hinweg." />
+    <div class="tools-grid">
+      {topTools.map((tool, i) => <ToolCard tool={{ ...tool.data, id: tool.id }} rank={i + 1} />)}
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .page-head { padding: 18px 0 32px; }
+  .page-head .eyebrow { display: inline-block; background: rgba(237,237,237,0.85); font-size: 13px; font-weight: 500; padding: 5px 13px; border-radius: 24px; margin-bottom: 16px; }
+  .page-head h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.05; letter-spacing: -1.4px; max-width: 820px; margin-bottom: 16px; }
+  .page-head p.intro { font-size: 18px; color: #4a423d; max-width: 680px; line-height: 1.55; }
+
+  section.wrap { padding: 40px 24px; }
+
+  .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .hub-card { background: var(--color-snow); border-radius: var(--radius-cards); padding: 26px 24px; box-shadow: var(--shadow-subtle); transition: transform .15s, box-shadow .15s; display: block; }
+  .hub-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .hub-card h3 { font-size: 22px; letter-spacing: -0.4px; margin-bottom: 10px; }
+  .hub-card p { font-size: 14px; color: #5a524d; line-height: 1.55; }
+  .hub-card .arrow { margin-top: 14px; font-size: 14px; font-weight: 500; color: var(--color-action-azure); }
+
+  .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+  @media (max-width: 1000px) {
+    .hub-grid, .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .hub-grid, .tools-grid { grid-template-columns: 1fr; }
+  }
+</style>

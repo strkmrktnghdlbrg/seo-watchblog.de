@@ -1,0 +1,181 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ToolCard from '../components/ToolCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+
+// Top SEO-Tools: 4 höchstbewertete SEO-Software (Plugins/Hosting/Kurse haben eigene Sektionen)
+const allTools = await getCollection('tools');
+const topTools = allTools
+  .filter((t) => t.data.categorySlug === 'seo-software')
+  .sort((a, b) => b.data.scoreOverall - a.data.scoreOverall)
+  .slice(0, 4);
+
+// Neueste Watchblog-Artikel
+const watchblog = (await getCollection('articles'))
+  .filter((a) => a.data.section === 'watchblog' && !a.data.draft)
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
+  .slice(0, 3);
+
+const hubs = [
+  { ic: '🧰', title: 'SEO-Tools', text: 'Vergleiche & Testberichte zu Software, Hosting, Plugins und Kursen.', arrow: 'Tools entdecken', href: '/tools/' },
+  { ic: '📚', title: 'SEO-Wissen', text: 'Grundlagen, OnPage, OffPage, Technik, Lokal & E-Commerce - verständlich erklärt.', arrow: 'Wissen aufbauen', href: '/seo-wissen/' },
+  { ic: '📡', title: 'Watchblog', text: 'Google-Updates, KI-Suche & Branchen-News - immer auf dem aktuellen Stand.', arrow: 'News lesen', href: '/watchblog/' },
+  { ic: '🧭', title: 'Ratgeber', text: 'Schritt-für-Schritt-Anleitungen: Audit, Checklisten & Erfolgsmessung.', arrow: 'Anleitungen ansehen', href: '/ratgeber/' },
+];
+
+const cats = [
+  { badge: '12 Tools', title: 'SEO-Software', text: 'All-in-One-Suiten, Keyword-Tools, Rank-Tracker & Backlink-Checker im Test.', href: '/tools/seo-software/' },
+  { badge: '8 Anbieter', title: 'Hosting & Speed', text: 'Schnelles Hosting für bessere Core Web Vitals - von Managed-WP bis Cloud.', href: '/tools/hosting-speed/' },
+  { badge: '10 Plugins', title: 'WordPress-Plugins', text: 'SEO-Plugins, Caching, Schema & Page-Builder, die wirklich etwas bringen.', href: '/tools/wordpress-plugins/' },
+  { badge: '6 Kurse', title: 'Kurse & Weiterbildung', text: 'SEO-Onlinekurse und Coachings für Einsteiger und Fortgeschrittene.', href: '/tools/seo-kurse/' },
+];
+---
+<BaseLayout title="SEO Watchblog | SEO-Tools, Wissen & Updates">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Unabhängige SEO-Tool-Tests & aktuelle Updates</span>
+      <h1>Die richtigen SEO-Tools. Fundiert verglichen.</h1>
+      <p class="lead">Wir testen SEO-Software, Hosting und WordPress-Tools nach transparenten Kriterien - und erklären das Wissen dahinter. Damit du investierst, was wirklich rankt.</p>
+      <div class="hero-cta">
+        <a class="btn btn-azure" href="/tools/">SEO-Tools vergleichen</a>
+        <a class="btn btn-ghost" href="/seo-wissen/">SEO lernen</a>
+      </div>
+      <div class="hero-meta">
+        <span>51 getestete Tools & Ratgeber</span>
+        <span>Transparentes Score-System</span>
+        <span>Wöchentliche Google-Updates</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOP TOOLS -->
+  <section id="tools">
+    <div class="wrap">
+      <SectionHead
+        title="Top SEO-Tools 2026"
+        subtitle="Bewertet nach Funktionsumfang, Datenqualität, Bedienung, Preis-Leistung und Support."
+        linkHref="/tools/"
+        linkLabel="Alle Tools im Vergleich"
+      />
+      <div class="tools-grid">
+        {topTools.map((tool, i) => <ToolCard tool={{ ...tool.data, id: tool.id }} rank={i + 1} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- HUBS -->
+  <section id="wissen">
+    <div class="wrap">
+      <SectionHead title="Wo möchtest du starten?" subtitle="Vier Bereiche - von der Tool-Entscheidung bis zum tiefen SEO-Wissen." />
+      <div class="hubs">
+        {hubs.map((h) => (
+          <a class="hub" href={h.href}>
+            <div class="ic">{h.ic}</div>
+            <h3>{h.title}</h3>
+            <p>{h.text}</p>
+            <div class="arrow">{h.arrow} →</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MONEY CATEGORIES -->
+  <section>
+    <div class="wrap">
+      <SectionHead title="Tools für jeden Bedarf" subtitle="Vier Kategorien, in denen wir Anbieter unabhängig testen und vergleichen." />
+      <div class="cats">
+        {cats.map((c) => (
+          <a class="cat-card" href={c.href}>
+            <span class="badge">{c.badge}</span>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WATCHBLOG -->
+  <section id="watchblog">
+    <div class="wrap">
+      <SectionHead title="Aus dem Watchblog" subtitle="Updates, Trends und Analysen aus der SEO-Welt." linkHref="/watchblog/" linkLabel="Alle Beiträge" />
+      <div class="articles">
+        {watchblog.map((article) => <ArticleCard article={article} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter">
+    <div class="wrap">
+      <div class="news-card">
+        <h2>SEO-Updates, die du nicht verpasst</h2>
+        <p>Jede Woche die wichtigsten Google-Änderungen und neue Tool-Tests - kompakt in dein Postfach.</p>
+        <form class="news-form" onsubmit="return false;">
+          <input type="email" placeholder="deine@email.de" />
+          <button class="btn btn-azure" type="submit">Abonnieren</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .hero { padding: 88px 0 72px; text-align: center; position: relative; }
+  .hero .eyebrow {
+    display: inline-block; background: rgba(237,237,237,0.8); color: var(--color-inkwell);
+    font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 24px; margin-bottom: 26px;
+    letter-spacing: .2px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 64px); line-height: 1.02; letter-spacing: -1.9px;
+    max-width: 900px; margin: 0 auto 22px;
+  }
+  .hero p.lead { font-size: 19px; color: #4a423d; max-width: 620px; margin: 0 auto 34px; line-height: 1.55; }
+  .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hero-meta { margin-top: 30px; font-size: 14px; color: var(--color-stone-gray); display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; }
+  .hero-meta span::before { content: "✓ "; color: var(--color-action-azure); }
+
+  section { padding: 48px 0; }
+
+  .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+  .hubs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .hub { background: var(--color-silver-mist); border-radius: var(--radius-cards); padding: 26px 22px; transition: transform .15s, background .15s; display: block; }
+  .hub:hover { transform: translateY(-3px); background: #e6e6e6; }
+  .hub .ic { width: 46px; height: 46px; border-radius: 14px; background: var(--color-snow); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 16px; box-shadow: var(--shadow-subtle); }
+  .hub h3 { font-size: 22px; letter-spacing: -0.4px; margin-bottom: 8px; }
+  .hub p { font-size: 14px; color: #5a524d; line-height: 1.5; }
+  .hub .arrow { margin-top: 14px; font-size: 14px; font-weight: 500; color: var(--color-action-azure); }
+
+  .cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .cat-card { background: var(--color-snow); border-radius: var(--radius-cards); padding: 24px; box-shadow: var(--shadow-subtle); transition: transform .15s, box-shadow .15s; }
+  .cat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .cat-card .badge { display: inline-block; background: var(--color-silver-mist); font-size: 12px; font-weight: 500; padding: 4px 11px; border-radius: 24px; margin-bottom: 14px; }
+  .cat-card h3 { font-size: 20px; letter-spacing: -0.3px; margin-bottom: 8px; }
+  .cat-card p { font-size: 14px; color: #5a524d; line-height: 1.5; }
+
+  .articles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+
+  .news-card { background: var(--color-inkwell); color: var(--color-snow); border-radius: var(--radius-cards); padding: 54px 48px; text-align: center; position: relative; overflow: hidden; }
+  .news-card::after { content: ""; position: absolute; inset: auto -80px -120px auto; width: 320px; height: 320px; background: radial-gradient(circle, rgba(74,131,245,0.45), transparent 70%); pointer-events: none; }
+  .news-card h2 { color: var(--color-snow); font-size: clamp(28px,4vw,40px); letter-spacing: -0.8px; margin-bottom: 12px; position: relative; }
+  .news-card p { color: #cfc9c5; max-width: 480px; margin: 0 auto 26px; position: relative; }
+  .news-form { display: flex; gap: 10px; max-width: 440px; margin: 0 auto; position: relative; flex-wrap: wrap; justify-content: center; }
+  .news-form input { flex: 1; min-width: 220px; padding: 12px 18px; border-radius: var(--radius-buttons); border: none; font-family: var(--font-sans); font-size: 15px; background: var(--color-snow); color: var(--color-inkwell); }
+
+  @media (max-width: 1000px) {
+    .tools-grid, .hubs, .cats { grid-template-columns: repeat(2, 1fr); }
+    .articles { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .tools-grid, .hubs, .cats, .articles { grid-template-columns: 1fr; }
+    .hero { padding: 60px 0 48px; }
+  }
+</style>

@@ -1,0 +1,24 @@
+---
+interface Item {
+  label: string;
+  href?: string;
+}
+interface Props {
+  items: Item[];
+}
+const { items } = Astro.props;
+---
+<div class="crumb">
+  {items.map((item, i) => (
+    <>
+      {item.href ? <a href={item.href}>{item.label}</a> : <span>{item.label}</span>}
+      {i < items.length - 1 && <span class="sep"> › </span>}
+    </>
+  ))}
+</div>
+
+<style>
+  .crumb { font-size: 13px; color: var(--color-stone-gray); padding: 26px 0 0; }
+  .crumb a:hover { color: var(--color-action-azure); }
+  .crumb .sep { color: var(--color-stone-gray); }
+</style>

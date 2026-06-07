@@ -1,0 +1,37 @@
+---
+interface SubScores {
+  funktionsumfang: number;
+  datenqualitaet: number;
+  bedienung: number;
+  preisLeistung: number;
+  support: number;
+}
+interface Props {
+  subScores: SubScores;
+}
+const { subScores } = Astro.props;
+
+const rows: { label: string; value: number }[] = [
+  { label: 'Funktionsumfang', value: subScores.funktionsumfang },
+  { label: 'Datenqualität', value: subScores.datenqualitaet },
+  { label: 'Bedienung', value: subScores.bedienung },
+  { label: 'Preis-Leistung', value: subScores.preisLeistung },
+  { label: 'Support', value: subScores.support },
+];
+---
+<div class="subscores">
+  {rows.map((row) => (
+    <div class="subscore">
+      <div class="row"><span>{row.label}</span><b>{row.value.toFixed(1)}</b></div>
+      <div class="bar"><span style={`width:${(row.value / 5) * 100}%`}></span></div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .subscores { display: flex; flex-direction: column; gap: 16px; }
+  .subscore .row { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 6px; }
+  .subscore .row b { font-weight: 600; }
+  .bar { height: 8px; background: var(--color-silver-mist); border-radius: 99px; overflow: hidden; }
+  .bar > span { display: block; height: 100%; background: var(--color-action-azure); border-radius: 99px; }
+</style>

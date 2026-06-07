@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Impressum - SEO Watchblog"
+  description="Impressum und Anbieterkennzeichnung von SEO Watchblog."
+>
+  <div class="wrap">
+    <div class="crumb"><a href="/">Home</a> › <span>Impressum</span></div>
+  </div>
+
+  <section class="wrap page-head">
+    <span class="eyebrow">Rechtliches</span>
+    <h1>Impressum</h1>
+  </section>
+
+  <section class="wrap">
+    <div class="notice">
+      Platzhalter. Dieser Text muss vor dem Go-Live durch die tatsächlichen, rechtlich geprüften Angaben des Betreibers ersetzt werden.
+    </div>
+
+    <div class="prose">
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>
+        Max Mustermann<br />
+        SEO Watchblog<br />
+        Musterstraße 1<br />
+        12345 Musterstadt<br />
+        Deutschland
+      </p>
+
+      <h2>Kontakt</h2>
+      <p>
+        Telefon: +49 (0) 000 000000<br />
+        E-Mail: kontakt@beispiel.de
+      </p>
+
+      <h2>Umsatzsteuer-ID</h2>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: DE000000000</p>
+
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p>
+        Max Mustermann<br />
+        Musterstraße 1<br />
+        12345 Musterstadt
+      </p>
+
+      <h2>Haftung für Inhalte</h2>
+      <p>Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+
+      <h2>Haftung für Links</h2>
+      <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+
+      <h2>Affiliate-Hinweis</h2>
+      <p>Diese Website enthält Affiliate-Links. Kommt über einen solchen Link ein Kauf zustande, erhalten wir gegebenenfalls eine Provision. Für Nutzerinnen und Nutzer entstehen dadurch keine zusätzlichen Kosten.</p>
+    </div>
+  </section>
+
+  <style>
+    .crumb { font-size: 13px; color: var(--color-stone-gray); padding: 26px 0 0; }
+    .crumb a:hover { color: var(--color-action-azure); }
+    .page-head { padding: 18px 0 24px; }
+    .page-head .eyebrow { display: inline-block; background: rgba(237,237,237,0.85); font-size: 13px; font-weight: 500; padding: 5px 13px; border-radius: 24px; margin-bottom: 16px; }
+    .page-head h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.05; letter-spacing: -1.4px; }
+
+    section { padding: 16px 0 40px; }
+
+    .notice { background: var(--color-horizon-glow); color: var(--color-inkwell); font-size: 14px; border-radius: 18px; padding: 14px 18px; margin-bottom: 28px; max-width: 720px; line-height: 1.5; }
+
+    .prose { max-width: 720px; }
+    .prose p { font-size: 16px; line-height: 1.7; color: #2e2723; margin-bottom: 18px; }
+    .prose h2 { font-size: 24px; letter-spacing: -0.4px; margin: 30px 0 10px; }
+  </style>
+</BaseLayout>

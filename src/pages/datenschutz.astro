@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Datenschutzerklärung - SEO Watchblog"
+  description="Informationen zur Verarbeitung personenbezogener Daten auf SEO Watchblog."
+>
+  <div class="wrap">
+    <div class="crumb"><a href="/">Home</a> › <span>Datenschutz</span></div>
+  </div>
+
+  <section class="wrap page-head">
+    <span class="eyebrow">Rechtliches</span>
+    <h1>Datenschutzerklärung</h1>
+  </section>
+
+  <section class="wrap">
+    <div class="notice">
+      Platzhalter. Diese Datenschutzerklärung ist ein Muster und muss vor dem Go-Live durch eine rechtlich geprüfte, auf den tatsächlichen Einsatz abgestimmte Fassung ersetzt werden.
+    </div>
+
+    <div class="prose">
+      <h2>1. Verantwortlicher</h2>
+      <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist der im Impressum genannte Betreiber. Die Kontaktdaten findest du auf der <a href="/impressum/">Impressum-Seite</a>.</p>
+
+      <h2>2. Hosting</h2>
+      <p>Diese Website wird bei einem externen Dienstleister gehostet. Beim Aufruf der Seiten werden technisch notwendige Daten (etwa IP-Adresse, Datum und Uhrzeit des Zugriffs) in Server-Logfiles verarbeitet. Rechtsgrundlage ist unser berechtigtes Interesse am sicheren und stabilen Betrieb (Art. 6 Abs. 1 lit. f DSGVO).</p>
+
+      <h2>3. Kontaktformular</h2>
+      <p>Wenn du uns über das Kontaktformular schreibst, verarbeiten wir die von dir angegebenen Daten (Name, E-Mail-Adresse, Nachricht) ausschließlich zur Bearbeitung deiner Anfrage. Der Versand erfolgt über einen externen Formular-Dienstleister. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b und lit. f DSGVO.</p>
+
+      <h2>4. Affiliate-Links</h2>
+      <p>Wir setzen Affiliate-Links ein. Klickst du auf einen solchen Link, kann der jeweilige Partner ein Cookie setzen, um einen späteren Abschluss zuzuordnen. Details regeln die Datenschutzhinweise des jeweiligen Partners.</p>
+
+      <h2>5. Deine Rechte</h2>
+      <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie das Recht auf Widerspruch. Außerdem steht dir ein Beschwerderecht bei einer Aufsichtsbehörde zu.</p>
+
+      <h2>6. Änderungen</h2>
+      <p>Wir passen diese Datenschutzerklärung an, sobald sich die Rechtslage oder unsere Datenverarbeitung ändert. Es gilt jeweils die hier veröffentlichte aktuelle Fassung.</p>
+    </div>
+  </section>
+
+  <style>
+    .crumb { font-size: 13px; color: var(--color-stone-gray); padding: 26px 0 0; }
+    .crumb a:hover { color: var(--color-action-azure); }
+    .page-head { padding: 18px 0 24px; }
+    .page-head .eyebrow { display: inline-block; background: rgba(237,237,237,0.85); font-size: 13px; font-weight: 500; padding: 5px 13px; border-radius: 24px; margin-bottom: 16px; }
+    .page-head h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.05; letter-spacing: -1.4px; }
+
+    section { padding: 16px 0 40px; }
+
+    .notice { background: var(--color-horizon-glow); color: var(--color-inkwell); font-size: 14px; border-radius: 18px; padding: 14px 18px; margin-bottom: 28px; max-width: 720px; line-height: 1.5; }
+
+    .prose { max-width: 720px; }
+    .prose p { font-size: 16px; line-height: 1.7; color: #2e2723; margin-bottom: 18px; }
+    .prose p a { color: var(--color-action-azure); }
+    .prose h2 { font-size: 24px; letter-spacing: -0.4px; margin: 30px 0 10px; }
+  </style>
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  linkHref?: string;
+  linkLabel?: string;
+}
+const { title, subtitle, linkHref, linkLabel } = Astro.props;
+---
+<div class="sec-head">
+  <div>
+    <h2>{title}</h2>
+    {subtitle && <p>{subtitle}</p>}
+  </div>
+  {linkHref && linkLabel && <a class="sec-link" href={linkHref}>{linkLabel} →</a>}
+</div>
+
+<style>
+  .sec-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 24px; gap: 16px; flex-wrap: wrap; }
+  .sec-head h2 { font-size: clamp(26px, 3.5vw, 34px); letter-spacing: -0.7px; }
+  .sec-head p { color: var(--color-stone-gray); font-size: 15px; margin-top: 6px; }
+  .sec-link { font-size: 15px; font-weight: 500; color: var(--color-action-azure); white-space: nowrap; }
+</style>

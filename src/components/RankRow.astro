@@ -1,0 +1,60 @@
+---
+interface Props {
+  tool: any;
+  rank: number;
+}
+const { tool, rank } = Astro.props;
+
+const full = Math.round(tool.scoreOverall);
+const stars = '★'.repeat(full) + '☆'.repeat(Math.max(0, 5 - full));
+const scoreFmt = tool.scoreOverall.toFixed(1);
+const pros = (tool.pros ?? []).slice(0, 3);
+---
+<article class="rank-row">
+  <div class="num">{rank}</div>
+  <div>
+    <div class={`logo-tile ${tool.gradient}`}>{tool.shortName}</div>
+    <h3>{tool.name}</h3>
+    <div class="cat">{tool.category} · {tool.price}</div>
+    <ul class="pros">
+      {pros.map((p: string) => <li>{p}</li>)}
+    </ul>
+  </div>
+  <div class="scorebox">
+    <div class="big">{scoreFmt}</div><div class="out">/ 5.0</div>
+    <span class="stars">{stars}</span>
+  </div>
+  <div class="cta-col">
+    <div class="price">{tool.freeTrial ?? 'Kein Gratis-Trial'}</div>
+    <a class="btn btn-azure" href={tool.affiliateUrl} target="_blank" rel="nofollow sponsored noopener">Zum Anbieter</a>
+    <a class="sub" href={`/tools/review/${tool.id}/`}>Testbericht lesen →</a>
+  </div>
+</article>
+
+<style>
+  .rank-row {
+    background: var(--color-snow); border-radius: var(--radius-cards); box-shadow: var(--shadow-subtle);
+    padding: 22px; display: grid; grid-template-columns: 56px 1.4fr 1fr 200px; gap: 22px; align-items: center;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .rank-row:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .rank-row .num { font-family: var(--font-serif); font-size: 40px; color: var(--color-distant-sky); text-align: center; line-height: 1; }
+  .rank-row .logo-tile { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 22px; margin-bottom: 12px; }
+  .rank-row h3 { font-size: 23px; letter-spacing: -0.4px; margin-bottom: 3px; }
+  .rank-row .cat { font-size: 13px; color: var(--color-stone-gray); margin-bottom: 10px; }
+  .rank-row .pros { list-style: none; display: flex; flex-direction: column; gap: 5px; font-size: 14px; color: #4a423d; }
+  .rank-row .pros li::before { content: "✓ "; color: var(--color-action-azure); font-weight: 600; }
+  .rank-row .scorebox { text-align: center; }
+  .rank-row .scorebox .big { font-family: var(--font-serif); font-size: 38px; line-height: 1; }
+  .rank-row .scorebox .out { font-size: 12px; color: var(--color-stone-gray); }
+  .rank-row .stars { color: var(--color-action-azure); font-size: 13px; letter-spacing: 2px; display: block; margin-top: 4px; }
+  .rank-row .price { font-size: 13px; color: var(--color-stone-gray); margin-bottom: 10px; text-align: center; }
+  .rank-row .cta-col { display: flex; flex-direction: column; gap: 8px; }
+  .rank-row .cta-col .btn { width: 100%; }
+  .rank-row .cta-col .sub { font-size: 12px; color: var(--color-stone-gray); text-align: center; }
+
+  @media (max-width: 1000px) {
+    .rank-row { grid-template-columns: 40px 1fr; row-gap: 14px; }
+    .rank-row .scorebox, .rank-row .cta-col { grid-column: 2; }
+  }
+</style>

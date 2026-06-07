@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+const clusters: Record<string, { title: string; desc: string }> = {
+  'grundlagen': { title: 'SEO-Grundlagen', desc: 'Wie Suchmaschinen funktionieren und worauf es beim Einstieg in SEO ankommt.' },
+  'onpage': { title: 'OnPage-SEO', desc: 'Inhalte, Meta-Tags, interne Links und Snippets richtig optimieren.' },
+  'offpage-linkbuilding': { title: 'OffPage-SEO & Linkbuilding', desc: 'Backlinks, Domain-Autorität und nachhaltige Link-Strategien.' },
+  'technisches-seo': { title: 'Technisches SEO', desc: 'Ladezeit, Core Web Vitals, Indexierung und strukturierte Daten.' },
+  'lokales-seo': { title: 'Lokales SEO', desc: 'Mehr Sichtbarkeit in der Region: Google Business, Bewertungen und lokale Signale.' },
+  'ecommerce-seo': { title: 'E-Commerce-SEO', desc: 'Produktseiten, Kategorien und Online-Shops für die Suche optimieren.' },
+  'content-keywords': { title: 'Content & Keywords', desc: 'Keyword-Recherche, Content-Strategie und Wettbewerbsanalyse.' },
+};
+
+export async function getStaticPaths() {
+  const slugs = [
+    'grundlagen', 'onpage', 'offpage-linkbuilding', 'technisches-seo',
+    'lokales-seo', 'ecommerce-seo', 'content-keywords',
+  ];
+  return slugs.map((cluster) => ({ params: { cluster } }));
+}
+
+const { cluster } = Astro.params;
+const meta = clusters[cluster] ?? { title: cluster, desc: '' };
+
+const articles = (await getCollection('articles', (e) => e.data.section === 'seo-wissen' && e.data.cluster === cluster && !e.data.draft))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+<BaseLayout
+  title={`${meta.title} | SEO Watchblog`}
+  description={meta.desc}
+>
+  <div class="wrap">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'SEO-Wissen', href: '/seo-wissen/' }, { label: meta.title }]} />
+    <div class="page-head">
+      <span class="eyebrow">{articles.length} Artikel · SEO-Wissen</span>
+      <h1>{meta.title}</h1>
+      {meta.desc && <p class="intro">{meta.desc}</p>}
+    </div>
+  </div>
+
+  <section class="wrap">
+    {articles.length > 0 ? (
+      <div class="articles">
+        {articles.map((article) => <ArticleCard article={article} />)}
+      </div>
+    ) : (
+      <p class="empty">In diesem Cluster sind aktuell keine Artikel veröffentlicht.</p>
+    )}
+  </section>
+
+  <style>
+    .articles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+    .empty { color: var(--color-stone-gray); font-size: 16px; }
+    @media (max-width: 1000px) { .articles { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .articles { grid-template-columns: 1fr; } }
+  </style>
+</BaseLayout>

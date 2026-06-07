@@ -1,0 +1,145 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import SectionHead from '../../components/SectionHead.astro';
+import RankRow from '../../components/RankRow.astro';
+import FaqList from '../../components/FaqList.astro';
+
+export async function getStaticPaths() {
+  const hubs = await getCollection('hubs');
+  const tools = await getCollection('tools');
+  return hubs.map((hub) => ({
+    params: { hub: hub.id },
+    props: { hub, tools },
+  }));
+}
+
+const { hub, tools } = Astro.props;
+
+// Tools des Hubs in der definierten Reihenfolge, nach Score sortiert
+const toolMap = new Map(tools.map((t) => [t.id, t]));
+const hubTools = hub.data.toolSlugs
+  .map((slug: string) => toolMap.get(slug))
+  .filter((t: any): t is NonNullable<typeof t> => Boolean(t))
+  .sort((a: any, b: any) => b.data.scoreOverall - a.data.scoreOverall);
+
+const updatedLabel = hub.data.eyebrow;
+
+// Empfehlungs-Picks
+const picks = hubTools.slice(0, 4).map((t: any, i: number) => {
+  const labels = ['Beste Gesamtlösung', 'Starke Alternative', 'Solide Wahl', 'Preis-Tipp'];
+  return { tag: labels[i] ?? 'Empfehlung', name: t.data.name };
+});
+---
+<BaseLayout title={`${hub.data.title} | SEO Watchblog`} description={hub.data.intro}>
+
+  <div class="wrap">
+    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'SEO-Tools', href: '/tools/' }, { label: hub.data.title }]} />
+    <div class="page-head">
+      {updatedLabel && <span class="eyebrow">{updatedLabel}</span>}
+      <h1>{hub.data.title}</h1>
+      <p class="intro">{hub.data.intro}</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="split">
+      <div>
+        {hub.data.filters.length > 0 && (
+          <div class="filterbar">
+            {hub.data.filters.map((f: string, i: number) => (
+              <button class={`chip${i === 0 ? ' active' : ''}`}>{f}</button>
+            ))}
+          </div>
+        )}
+
+        <div class="rank-list">
+          {hubTools.map((tool: any, i: number) => (
+            <RankRow tool={{ ...tool.data, id: tool.id }} rank={i + 1} />
+          ))}
+        </div>
+      </div>
+
+      <aside>
+        <div class="side-card">
+          <h4>Unsere Empfehlungen</h4>
+          {picks.map((p: any) => (
+            <div class="side-pick"><div><span class="tag">{p.tag}</span><br /><strong>{p.name}</strong></div></div>
+          ))}
+        </div>
+        <div class="side-card" style="margin-top:18px;">
+          <h4>So testen wir</h4>
+          <p style="font-size:14px;color:#5a524d;line-height:1.6;">Jedes Tool durchläuft 5 Kriterien - Funktionsumfang, Datenqualität, Bedienung, Preis-Leistung und Support. <a href="/testkriterien/" style="color:var(--color-action-azure);">Zur Methodik →</a></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section class="wrap">
+    <SectionHead title="Alle Tools im direkten Vergleich" />
+    <div class="cmp-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>Tool</th><th>Kategorie</th><th>Score</th><th>Ab Preis</th><th>Gratis-Test</th><th>Ideal für</th></tr>
+        </thead>
+        <tbody>
+          {hubTools.map((tool: any) => (
+            <tr>
+              <td class="tool-name">{tool.data.name}</td>
+              <td>{tool.data.category}</td>
+              <td class="mini-score">{tool.data.scoreOverall.toFixed(1)}</td>
+              <td>{tool.data.price}</td>
+              <td>{tool.data.freeTrial ?? '–'}</td>
+              <td>{tool.data.idealFor}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  {hub.data.faqs.length > 0 && (
+    <section class="wrap">
+      <SectionHead title="Häufige Fragen" />
+      <FaqList faqs={hub.data.faqs} />
+    </section>
+  )}
+
+</BaseLayout>
+
+<style>
+  .page-head { padding: 18px 0 32px; }
+  .page-head .eyebrow { display: inline-block; background: rgba(237,237,237,0.85); font-size: 13px; font-weight: 500; padding: 5px 13px; border-radius: 24px; margin-bottom: 16px; }
+  .page-head h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.05; letter-spacing: -1.4px; max-width: 820px; margin-bottom: 16px; }
+  .page-head p.intro { font-size: 18px; color: #4a423d; max-width: 680px; line-height: 1.55; }
+
+  section.wrap { padding: 40px 24px; }
+
+  .filterbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+  .chip { background: var(--color-snow); border: 1px solid var(--color-distant-sky); font-size: 14px; font-weight: 500; padding: 8px 16px; border-radius: 24px; cursor: pointer; transition: all .15s; font-family: var(--font-sans); }
+  .chip:hover { border-color: var(--color-action-azure); }
+  .chip.active { background: var(--color-inkwell); color: var(--color-snow); border-color: var(--color-inkwell); }
+
+  .rank-list { display: flex; flex-direction: column; gap: 18px; }
+
+  .split { display: grid; grid-template-columns: 1fr 320px; gap: 36px; align-items: start; }
+  .side-card { background: var(--color-silver-mist); border-radius: var(--radius-cards); padding: 24px; }
+  .side-card h4 { font-family: var(--font-serif); font-size: 18px; margin-bottom: 14px; }
+  .side-pick { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--color-distant-sky); }
+  .side-pick:last-child { border-bottom: none; }
+  .side-pick .tag { font-size: 12px; color: var(--color-stone-gray); }
+  .side-pick strong { font-family: var(--font-serif); font-weight: 400; font-size: 16px; }
+
+  .cmp-wrap { background: var(--color-snow); border-radius: var(--radius-cards); box-shadow: var(--shadow-subtle); overflow-x: auto; }
+  table.cmp { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.cmp th, table.cmp td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--color-silver-mist); }
+  table.cmp th { font-family: var(--font-sans); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--color-stone-gray); background: #faf9f8; }
+  table.cmp tr:last-child td { border-bottom: none; }
+  table.cmp .tool-name { font-family: var(--font-serif); font-size: 17px; }
+  table.cmp .mini-score { font-weight: 600; color: var(--color-action-azure); }
+
+  @media (max-width: 1000px) {
+    .split { grid-template-columns: 1fr; }
+  }
+</style>

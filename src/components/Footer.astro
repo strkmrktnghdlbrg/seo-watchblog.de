@@ -1,0 +1,56 @@
+---
+// 4-Spalten-Footer (Paragraph design)
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="foot-grid">
+    <div>
+      <a class="logo" href="/"><span class="dot"></span>SEO&nbsp;Watchblog</a>
+      <p class="foot-about">Unabhängige Tests von SEO-Tools, Hosting und WordPress-Software - plus das Wissen, um sie richtig einzusetzen.</p>
+    </div>
+    <div>
+      <h4>Tools</h4>
+      <a href="/tools/seo-software/">SEO-Software</a>
+      <a href="/tools/hosting/">Hosting &amp; Speed</a>
+      <a href="/tools/wordpress-plugins/">WordPress-Plugins</a>
+      <a href="/tools/kurse/">Kurse</a>
+    </div>
+    <div>
+      <h4>SEO-Wissen</h4>
+      <a href="/seo-wissen/">Grundlagen</a>
+      <a href="/seo-wissen/">OnPage &amp; OffPage</a>
+      <a href="/seo-wissen/">Technisches SEO</a>
+      <a href="/seo-wissen/">Lokales &amp; E-Commerce</a>
+    </div>
+    <div>
+      <h4>Über uns</h4>
+      <a href="/redaktion/">Redaktion</a>
+      <a href="/testkriterien/">Testkriterien</a>
+      <a href="/kontakt/">Kontakt</a>
+      <a href="/#newsletter">Newsletter</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>Copyright © {year} SEO Watchblog</span>
+    <span>Impressum · Datenschutz · Affiliate-Hinweis</span>
+  </div>
+</footer>
+
+<style>
+  footer { padding: 56px 0 40px; border-top: 1px solid var(--color-distant-sky); margin-top: 40px; }
+  .foot-grid {
+    display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 40px;
+    max-width: var(--page-max-width); margin-left: auto; margin-right: auto; padding: 0 24px;
+  }
+  .logo { font-family: var(--font-serif); font-size: 22px; letter-spacing: -0.4px; display: flex; align-items: center; gap: 9px; }
+  .logo .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--color-action-azure); }
+  .foot-grid h4 { font-family: var(--font-sans); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; color: var(--color-stone-gray); margin-bottom: 14px; }
+  .foot-grid a { display: block; font-size: 14px; color: #4a423d; padding: 5px 0; }
+  .foot-grid a:hover { color: var(--color-action-azure); }
+  .foot-about { font-size: 14px; color: #5a524d; line-height: 1.6; max-width: 280px; margin-top: 12px; }
+  .foot-bottom {
+    display: flex; justify-content: space-between; font-size: 13px; color: var(--color-stone-gray);
+    border-top: 1px solid var(--color-distant-sky); padding: 22px 24px 0;
+    max-width: var(--page-max-width); margin: 0 auto; flex-wrap: wrap; gap: 12px;
+  }
+</style>

@@ -1,0 +1,48 @@
+---
+// Sticky Header (Paragraph design)
+---
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="/"><span class="dot"></span>SEO&nbsp;Watchblog</a>
+    <nav class="nav-links">
+      <a class="ghost" href="/tools/">SEO-Tools</a>
+      <a class="ghost" href="/seo-wissen/">SEO-Wissen</a>
+      <a class="ghost" href="/watchblog/">Watchblog</a>
+      <a class="ghost" href="/ratgeber/">Ratgeber</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="/#newsletter">Newsletter</a>
+      <a class="btn btn-azure" href="/tools/">Top-Tools 2026</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  header.nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(219,213,210,0.82);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-subtle);
+    border-bottom: 1px solid var(--color-distant-sky);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px; max-width: var(--page-max-width); margin: 0 auto; padding: 0 24px;
+  }
+  .logo {
+    font-family: var(--font-serif); font-size: 22px; letter-spacing: -0.4px;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .logo .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--color-action-azure); }
+  .nav-links { display: flex; gap: 4px; align-items: center; }
+  .nav-links a.ghost {
+    font-size: 15px; padding: 8px 14px; border-radius: 20px; transition: background .15s;
+  }
+  .nav-links a.ghost:hover { background: var(--color-silver-mist); }
+  .nav-cta { display: flex; gap: 10px; align-items: center; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav-cta .btn-ghost { display: none; }
+  }
+</style>
