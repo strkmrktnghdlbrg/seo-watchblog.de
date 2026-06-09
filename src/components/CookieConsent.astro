@@ -1,0 +1,82 @@
+---
+// Leichtgewichtiger GDPR-Cookie-Consent-Banner (kein externer Dienst).
+// Speichert die Wahl in localStorage und meldet sie an Google Consent Mode v2 (dataLayer),
+// damit GTM/AdSense später nur mit Einwilligung Tracking-Cookies setzen.
+---
+<div id="cookie-consent" class="cc" hidden role="dialog" aria-live="polite" aria-label="Cookie-Hinweis">
+  <div class="cc-inner">
+    <p class="cc-text">
+      Wir nutzen Cookies und Tracking (z.&nbsp;B. für Statistik und Affiliate-Partner), um die Seite
+      zu verbessern. Du entscheidest, was geladen wird.
+      <a href="/datenschutz/">Mehr in der Datenschutzerklärung</a>.
+    </p>
+    <div class="cc-actions">
+      <button type="button" class="btn btn-ghost" data-cc="reject">Nur notwendige</button>
+      <button type="button" class="btn btn-azure" data-cc="accept">Alle akzeptieren</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var KEY = 'swb-consent';
+    var el = document.getElementById('cookie-consent');
+    if (!el) return;
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+
+    // Consent Mode v2: standardmäßig alles abgelehnt (greift, sobald GTM geladen wird)
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      wait_for_update: 500,
+    });
+
+    function apply(state) {
+      var granted = state === 'accept';
+      gtag('consent', 'update', {
+        ad_storage: granted ? 'granted' : 'denied',
+        ad_user_data: granted ? 'granted' : 'denied',
+        ad_personalization: granted ? 'granted' : 'denied',
+        analytics_storage: granted ? 'granted' : 'denied',
+      });
+      window.dispatchEvent(new CustomEvent('swb-consent', { detail: state }));
+    }
+
+    var stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (e) {}
+    if (stored === 'accept' || stored === 'reject') {
+      apply(stored);
+    } else {
+      el.hidden = false;
+    }
+
+    el.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-cc]');
+      if (!t) return;
+      var choice = t.getAttribute('data-cc');
+      try { localStorage.setItem(KEY, choice); } catch (e) {}
+      apply(choice);
+      el.hidden = true;
+    });
+  })();
+</script>
+
+<style>
+  .cc {
+    position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 100;
+    background: var(--color-snow); border-radius: var(--radius-cards);
+    box-shadow: var(--shadow-md); padding: 20px 24px; max-width: 720px; margin: 0 auto;
+  }
+  .cc-inner { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .cc-text { font-size: 14px; color: #4a423d; line-height: 1.5; flex: 1; min-width: 240px; }
+  .cc-text a { color: var(--color-action-azure); text-decoration: underline; }
+  .cc-actions { display: flex; gap: 10px; flex-shrink: 0; }
+  @media (max-width: 520px) {
+    .cc-actions { width: 100%; }
+    .cc-actions .btn { flex: 1; }
+  }
+</style>

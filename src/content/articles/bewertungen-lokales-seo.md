@@ -9,8 +9,29 @@ gradient: "g5"
 relatedTools: ["sistrix"]
 ---
 
-Bewertungen im lokalen SEO gehört zu den Grundlagen, die jede gut optimierte Website beherrschen sollte. Hier erklären wir die wichtigsten Zusammenhänge verständlich.
+Kundenbewertungen gehören zu den stärksten Ranking-Signalen im lokalen SEO. Google bewertet Anzahl, Aktualität und Durchschnittswert der Rezensionen, um zu entscheiden, welche Unternehmen im Local Pack und in Google Maps weit oben erscheinen. Wer hier passiv bleibt, überlässt Konkurrenten das Feld.
 
-Entscheidend ist, dass du Maßnahmen nicht isoliert betrachtest. SEO wirkt als Zusammenspiel aus technischer Basis, hochwertigen Inhalten und einer durchdachten Verlinkung. Wer einen dieser Bausteine vernachlässigt, verschenkt Potenzial. Beginne mit einer ehrlichen Bestandsaufnahme deiner aktuellen Situation, bevor du optimierst.
+## Welche Bewertungssignale Google berücksichtigt
 
-In der Praxis hat sich bewährt, in kleinen, messbaren Schritten vorzugehen und Ergebnisse regelmäßig zu prüfen. Dokumentiere Änderungen, beobachte die Entwicklung in der Search Console und passe deinen Plan an, statt blind Empfehlungen abzuarbeiten. So baust du nachhaltige Sichtbarkeit auf, die auch künftige Algorithmus-Updates übersteht.
+Nicht jede Bewertung zählt gleich. Google analysiert mehrere Faktoren:
+
+- **Anzahl und Aktualität**: Ein konstanter Zustrom neuer Rezensionen signalisiert ein aktiv genutztes Unternehmen. Alte Bewertungen verlieren mit der Zeit an Gewicht.
+- **Durchschnittliche Sternebewertung**: Ab 4,0 Sternen nehmen Klickraten messbar zu. Unter 3,5 Sternen kann das Ranking trotz vieler Rezensionen leiden.
+- **Bewertungsinhalt**: Keywords im Bewertungstext - etwa Produkt- oder Dienstleistungsbezeichnungen - fliessen als Relevanzsignal ein.
+- **Plattformvielfalt**: Neben Google Business Profile zählen auch Yelp, Trustpilot und branchenspezifische Portale für das Trust-Signal.
+
+## Systematisch Bewertungen aufbauen
+
+Das Einholen von Rezensionen ist keine einmalige Aktion, sondern ein laufender Prozess. Bewährt haben sich folgende Methoden:
+
+**Nach dem Kauf per E-Mail fragen**: Eine kurze, persönliche Anfrage mit direktem Link zur Google-Profilseite erzielt deutlich höhere Rücklaufquoten als allgemeine Hinweise.
+
+**Negative Bewertungen konstruktiv beantworten**: Öffentliche Antworten zeigen potenziellen Kunden, dass du Kritik ernst nimmst. Reagiere zeitnah, sachlich und biete eine konkrete Lösung an - das verbessert den Gesamteindruck oft mehr als die ursprüngliche Bewertung schadet.
+
+**Strukturierte Daten einsetzen**: Mit `schema.org/LocalBusiness` und Review-Markup können Sterne-Snippets in den Suchergebnissen erscheinen und die Klickrate steigen.
+
+## Rechtliche Grenzen beachten
+
+Bewertungsmanipulation - ob gekaufte Rezensionen oder organisierte Fake-Kampagnen - verstösst gegen die Richtlinien von Google und kann zu erheblichen Bussgeldern nach dem UWG führen. Unternehmen sollten Bewertungen ausschliesslich organisch gewinnen und gefälschte Rezensionen über den offiziellen Meldeweg entfernen lassen.
+
+Wer die Bewertungsperformance im Vergleich zu Wettbewerbern systematisch tracken möchte, findet dafür passende Sichtbarkeits- und Wettbewerbsanalysen in [Sistrix](/tools/review/sistrix/).

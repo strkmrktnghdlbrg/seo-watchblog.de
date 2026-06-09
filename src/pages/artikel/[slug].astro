@@ -3,6 +3,7 @@ import { getCollection, getEntry, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { photos } from '../../data/photos';
+import { articleLd, breadcrumbLd } from '../../lib/jsonld';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', (e) => !e.data.draft);
@@ -54,8 +55,13 @@ const relatedTools = (
     (entry.data.relatedTools ?? []).map((slug) => getEntry('tools', slug))
   )
 ).filter(Boolean);
+
+const jsonLd = [
+  articleLd({ title: entry.data.title, excerpt: entry.data.excerpt, date: entry.data.date, image: heroPhoto, url: `/artikel/${entry.id}/` }),
+  breadcrumbLd(crumbs),
+];
 ---
-<BaseLayout title={`${entry.data.title} | SEO Watchblog`} description={entry.data.excerpt}>
+<BaseLayout title={`${entry.data.title} | SEO Watchblog`} description={entry.data.excerpt} image={heroPhoto} ogType="article" jsonLd={jsonLd}>
   <div class="wrap">
     <Breadcrumb items={crumbs} />
     <div class="page-head">

@@ -5,6 +5,7 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import SectionHead from '../../components/SectionHead.astro';
 import RankRow from '../../components/RankRow.astro';
 import FaqList from '../../components/FaqList.astro';
+import { faqLd, breadcrumbLd, itemListLd } from '../../lib/jsonld';
 
 export async function getStaticPaths() {
   const hubs = await getCollection('hubs');
@@ -31,11 +32,18 @@ const picks = hubTools.slice(0, 4).map((t: any, i: number) => {
   const labels = ['Beste Gesamtlösung', 'Starke Alternative', 'Solide Wahl', 'Preis-Tipp'];
   return { tag: labels[i] ?? 'Empfehlung', name: t.data.name };
 });
+
+const crumbItems = [{ label: 'Home', href: '/' }, { label: 'SEO-Tools', href: '/tools/' }, { label: hub.data.title }];
+const jsonLd = [
+  breadcrumbLd(crumbItems),
+  itemListLd(hub.data.title, hubTools.map((t: any) => ({ name: t.data.name, url: `/tools/review/${t.id}/` }))),
+  faqLd(hub.data.faqs),
+].filter(Boolean);
 ---
-<BaseLayout title={`${hub.data.title} | SEO Watchblog`} description={hub.data.intro}>
+<BaseLayout title={`${hub.data.title} | SEO Watchblog`} description={hub.data.intro} jsonLd={jsonLd}>
 
   <div class="wrap">
-    <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'SEO-Tools', href: '/tools/' }, { label: hub.data.title }]} />
+    <Breadcrumb items={crumbItems} />
     <div class="page-head">
       {updatedLabel && <span class="eyebrow">{updatedLabel}</span>}
       <h1>{hub.data.title}</h1>

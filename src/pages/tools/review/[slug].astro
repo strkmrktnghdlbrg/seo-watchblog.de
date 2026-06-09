@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
+import { reviewLd, faqLd, breadcrumbLd } from '../../../lib/jsonld';
 import SectionHead from '../../../components/SectionHead.astro';
 import ScoreBars from '../../../components/ScoreBars.astro';
 import ProsCons from '../../../components/ProsCons.astro';
@@ -39,11 +40,20 @@ const alternatives = tool.alternatives
   .filter((t: any): t is NonNullable<typeof t> => Boolean(t));
 
 // Preis aufsplitten: "ab 139,95 €/Monat" → "139,95 €" + "/ Monat"
+
+// Breadcrumb + strukturierte Daten
+const crumbItems = [{ label: 'Home', href: '/' }, hubCrumb, { label: tool.name }];
+const reviewUrl = `/tools/review/${entry.id}/`;
+const jsonLd = [
+  reviewLd({ name: tool.name, scoreOverall: tool.scoreOverall, category: tool.category, price: tool.price, verdict: tool.verdict, url: reviewUrl }),
+  breadcrumbLd(crumbItems),
+  faqLd(tool.faqs),
+].filter(Boolean);
 ---
-<BaseLayout title={`${tool.name} Test & Erfahrungen 2026 | SEO Watchblog`} description={tool.verdict}>
+<BaseLayout title={`${tool.name} Test & Erfahrungen 2026 | SEO Watchblog`} description={tool.verdict} jsonLd={jsonLd}>
 
   <div class="wrap">
-    <Breadcrumb items={[{ label: 'Home', href: '/' }, hubCrumb, { label: tool.name }]} />
+    <Breadcrumb items={crumbItems} />
   </div>
 
   <!-- REVIEW HERO -->

@@ -8,8 +8,31 @@ readingTime: "4 Min."
 gradient: "g6"
 ---
 
-Was ist OnPage-SEO? gehört zu den Grundlagen, die jede gut optimierte Website beherrschen sollte. Hier erklären wir die wichtigsten Zusammenhänge verständlich.
+OnPage-SEO bezeichnet alle Maßnahmen, die du direkt auf deiner Website durchführst, um in Suchmaschinen besser sichtbar zu werden. Im Gegensatz zu OffPage-SEO (z.B. Linkaufbau) hast du hier die volle Kontrolle - kein Warten auf externe Partner, kein Abhängigkeitsverhältnis.
 
-Entscheidend ist, dass du Maßnahmen nicht isoliert betrachtest. SEO wirkt als Zusammenspiel aus technischer Basis, hochwertigen Inhalten und einer durchdachten Verlinkung. Wer einen dieser Bausteine vernachlässigt, verschenkt Potenzial. Beginne mit einer ehrlichen Bestandsaufnahme deiner aktuellen Situation, bevor du optimierst.
+## Die Kernelemente im Überblick
 
-In der Praxis hat sich bewährt, in kleinen, messbaren Schritten vorzugehen und Ergebnisse regelmäßig zu prüfen. Dokumentiere Änderungen, beobachte die Entwicklung in der Search Console und passe deinen Plan an, statt blind Empfehlungen abzuarbeiten. So baust du nachhaltige Sichtbarkeit auf, die auch künftige Algorithmus-Updates übersteht.
+Der Einstieg beginnt bei den Grundbausteinen, die Google und andere Suchmaschinen direkt auswerten:
+
+**Titel-Tags und Meta-Beschreibungen** sind das erste, was Nutzer in den Suchergebnissen sehen. Ein präziser Titel mit dem Haupt-Keyword und eine aussagekräftige Meta-Beschreibung erhöhen die Klickrate - auch wenn Meta-Descriptions kein direkter Rankingfaktor sind.
+
+**Überschriftenstruktur (H1-H3)** hilft Suchmaschinen, den Aufbau deines Inhalts zu verstehen. Die H1 sollte jede Seite nur einmal enthalten und das Thema klar benennen. Unterüberschriften gliedern den Text und erleichtern das Überfliegen.
+
+**Keyword-Integration** funktioniert 2026 nicht mehr über bloße Wiederholung. Wichtig sind natürliche Formulierungen, semantisch verwandte Begriffe und Antworten auf die tatsächlichen Fragen der Nutzer - sogenannte Suchintention.
+
+## Technische Grundlage nicht vergessen
+
+Inhalte allein reichen nicht. Suchmaschinen berücksichtigen auch technische Signale direkt auf der Seite:
+
+- **Ladezeit**: Bilder komprimieren, unnötige Skripte reduzieren, Browser-Caching nutzen
+- **Mobile Optimierung**: responsives Design ist Pflicht, da Google Mobile-First indexiert
+- **HTTPS**: Sicherheitsprotokoll ist Basis-Voraussetzung und leichter Rankingfaktor
+- **Core Web Vitals**: Largest Contentful Paint, Cumulative Layout Shift und Interaction to Next Paint messen echte Nutzererfahrung
+
+## Interne Verlinkung und UX
+
+Ein oft unterschätztes OnPage-Element ist die interne Verlinkung. Gut verlinkte Seiten erleichtern Crawlern die Navigation, verteilen PageRank und halten Nutzer länger auf der Website. Setze Ankertext gezielt, vermeide generische Texte wie "hier klicken".
+
+Häufige Fehler sind Keyword-Stuffing, doppelte Inhalte (Duplicate Content) und fehlende Canonical-Tags bei ähnlichen URLs. All das signalisiert Google mangelnde Sorgfalt und kostet Rankings.
+
+Wer OnPage-SEO systematisch angehen will, profitiert von einem Tool wie [Semrush](/tools/review/semrush/), das Optimierungspotenziale seitengenau aufzeigt und technische Probleme automatisch erkennt.
