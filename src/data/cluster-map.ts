@@ -1,6 +1,7 @@
 // Artikel→Sektion/Cluster-Mapping (WP→Astro Relaunch).
-// 'hi-level-crm' und 'webverzeichnis-webkatalog' = bezahlte Gastartikel,
-// bleiben URL-stabil auf Root-Ebene und sind hier NICHT enthalten.
+// 'webverzeichnis-webkatalog' = bezahlter Gastartikel, bleibt URL-stabil
+// auf Root-Ebene und ist hier NICHT enthalten. (hi-level-crm entfernt,
+// Gastpost-Deal ausgelaufen.)
 
 export interface ClusterEntry {
   slug: string;

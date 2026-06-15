@@ -1,7 +1,8 @@
 // 301-Redirects WP→Astro. Regel: /<slug>/ -> /artikel/<slug>/
 // Alle Artikel-Detailseiten liegen einheitlich unter /artikel/<slug>/.
-// Die 2 Gastartikel (hi-level-crm, webverzeichnis-webkatalog) bleiben
-// URL-stabil auf Root-Ebene und sind hier bewusst NICHT enthalten.
+// Gastartikel webverzeichnis-webkatalog bleibt URL-stabil auf Root-Ebene
+// und ist hier bewusst NICHT enthalten. (hi-level-crm wurde nach Auslaufen
+// des Gastpost-Deals entfernt -> /hi-level-crm/ liefert nun 404.)
 
 import { clusterMap } from './cluster-map';
 
