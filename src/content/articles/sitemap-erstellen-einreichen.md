@@ -5,6 +5,7 @@ excerpt: "Schritt für Schritt: XML-Sitemap erstellen und in der Google Search C
 date: "2025-07-11"
 readingTime: "5 Min."
 gradient: "g5"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Eine XML-Sitemap ist eine strukturierte Liste aller URLs deiner Website und signalisiert Suchmaschinen, welche Seiten es gibt, wie oft sie sich ändern und welche besonders wichtig sind. Wer eine Sitemap korrekt erstellt und einreicht, gibt Google und Bing einen direkten Fahrplan - besonders bei neuen Seiten oder umfangreichen Websites mit vielen Unterseiten.

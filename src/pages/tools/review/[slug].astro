@@ -10,13 +10,14 @@ import FaqList from '../../../components/FaqList.astro';
 
 export async function getStaticPaths() {
   const tools = await getCollection('tools');
+  const articles = await getCollection('articles', (e) => !e.data.draft);
   return tools.map((entry) => ({
     params: { slug: entry.id },
-    props: { entry, tools },
+    props: { entry, tools, articles },
   }));
 }
 
-const { entry, tools } = Astro.props;
+const { entry, tools, articles } = Astro.props;
 const tool = entry.data;
 const { Content } = await render(entry);
 
@@ -38,6 +39,12 @@ const toolMap = new Map(tools.map((t) => [t.id, t]));
 const alternatives = tool.alternatives
   .map((slug: string) => toolMap.get(slug))
   .filter((t: any): t is NonNullable<typeof t> => Boolean(t));
+
+// Artikel, die dieses Tool in relatedTools haben
+const relatedArticles = articles
+  .filter((a) => (a.data.relatedTools ?? []).includes(entry.id))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 4);
 
 // Preis aufsplitten: "ab 139,95 €/Monat" → "139,95 €" + "/ Monat"
 
@@ -122,6 +129,22 @@ const jsonLd = [
     </section>
   )}
 
+  <!-- VERWANDTE ARTIKEL -->
+  {relatedArticles.length > 0 && (
+    <section class="wrap">
+      <SectionHead title={`Artikel zu ${tool.name}`} />
+      <div class="art-grid">
+        {relatedArticles.map((a: any) => (
+          <a class="art-card" href={`/artikel/${a.id}/`}>
+            <span class="art-card-cluster">{a.data.cluster ?? a.data.section}</span>
+            <h4>{a.data.title}</h4>
+            <p>{a.data.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
   <!-- FAQ -->
   {tool.faqs.length > 0 && (
     <section class="wrap">
@@ -169,6 +192,14 @@ const jsonLd = [
   .alt-card h4 { font-family: var(--font-serif); font-size: 18px; margin: 8px 0 4px; }
   .alt-card .s { font-size: 13px; color: var(--color-action-azure); font-weight: 600; margin-bottom: 10px; }
   .alt-card .logo-tile { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); }
+
+  .art-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+  @media (max-width: 900px) { .art-grid { grid-template-columns: 1fr; } }
+  .art-card { background: var(--color-snow); border-radius: var(--radius-cards); padding: 20px; box-shadow: var(--shadow-subtle); transition: transform .15s, box-shadow .15s; }
+  .art-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .art-card-cluster { display: inline-block; font-size: 12px; font-weight: 500; color: var(--color-stone-gray); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+  .art-card h4 { font-family: var(--font-serif); font-size: 17px; font-weight: 400; margin: 0 0 8px; }
+  .art-card p { font-size: 14px; color: #5a524d; line-height: 1.5; margin: 0; }
 
   @media (max-width: 1000px) {
     .review-hero { grid-template-columns: 1fr; }

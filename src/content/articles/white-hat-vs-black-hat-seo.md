@@ -6,6 +6,7 @@ excerpt: "Der Unterschied zwischen sauberer und manipulativer Optimierung und wa
 date: "2025-12-08"
 readingTime: "5 Min."
 gradient: "g2"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Wer sich mit Suchmaschinenoptimierung beschäftigt, stößt früh auf die Unterscheidung zwischen White-Hat- und Black-Hat-SEO. Hinter diesen Begriffen steckt mehr als ein moralisches Urteil - sie beschreiben grundlegend verschiedene Strategien mit sehr unterschiedlichen Konsequenzen.

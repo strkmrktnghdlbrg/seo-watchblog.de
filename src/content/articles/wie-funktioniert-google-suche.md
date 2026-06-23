@@ -6,6 +6,7 @@ excerpt: "Crawling, Indexierung und Ranking erklärt: Wie Google Seiten findet, 
 date: "2025-04-02"
 readingTime: "5 Min."
 gradient: "g1"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Hinter jedem Suchergebnis steckt ein dreistufiger Prozess: Crawling, Indexierung und Ranking. Wer versteht, wie diese Phasen zusammenspielen, kann seine Website gezielt so aufbauen, dass Google sie versteht und bewertet.

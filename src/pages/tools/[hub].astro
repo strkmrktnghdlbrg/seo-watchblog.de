@@ -10,13 +10,14 @@ import { faqLd, breadcrumbLd, itemListLd } from '../../lib/jsonld';
 export async function getStaticPaths() {
   const hubs = await getCollection('hubs');
   const tools = await getCollection('tools');
+  const articles = await getCollection('articles', (e: any) => !e.data.draft);
   return hubs.map((hub) => ({
     params: { hub: hub.id },
-    props: { hub, tools },
+    props: { hub, tools, articles },
   }));
 }
 
-const { hub, tools } = Astro.props;
+const { hub, tools, articles } = Astro.props;
 
 // Tools des Hubs in der definierten Reihenfolge, nach Score sortiert
 const toolMap = new Map(tools.map((t) => [t.id, t]));
@@ -32,6 +33,13 @@ const picks = hubTools.slice(0, 4).map((t: any, i: number) => {
   const labels = ['Beste Gesamtlösung', 'Starke Alternative', 'Solide Wahl', 'Preis-Tipp'];
   return { tag: labels[i] ?? 'Empfehlung', name: t.data.name };
 });
+
+// Passende Ratgeber: Artikel, die mindestens ein Tool dieses Hubs in relatedTools haben
+const hubToolSet = new Set(hub.data.toolSlugs);
+const passendeRatgeber = articles
+  .filter((a: any) => (a.data.relatedTools ?? []).some((t: string) => hubToolSet.has(t)))
+  .sort((a: any, b: any) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 4);
 
 const crumbItems = [{ label: 'Home', href: '/' }, { label: 'SEO-Tools', href: '/tools/' }, { label: hub.data.title }];
 const jsonLd = [
@@ -80,6 +88,18 @@ const jsonLd = [
           <h4>So testen wir</h4>
           <p style="font-size:14px;color:#5a524d;line-height:1.6;">Jedes Tool durchläuft 5 Kriterien - Funktionsumfang, Datenqualität, Bedienung, Preis-Leistung und Support. <a href="/testkriterien/" style="color:var(--color-action-azure);">Zur Methodik →</a></p>
         </div>
+        {passendeRatgeber.length > 0 && (
+          <div class="side-card" style="margin-top:18px;">
+            <h4>Passende Ratgeber</h4>
+            <ul class="ratgeber-list">
+              {passendeRatgeber.map((a: any) => (
+                <li>
+                  <a href={`/artikel/${a.id}/`}>{a.data.title}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </aside>
     </div>
   </div>
@@ -146,6 +166,12 @@ const jsonLd = [
   table.cmp tr:last-child td { border-bottom: none; }
   table.cmp .tool-name { font-family: var(--font-serif); font-size: 17px; }
   table.cmp .mini-score { font-weight: 600; color: var(--color-action-azure); }
+
+  .ratgeber-list { list-style: none; padding: 0; margin: 0; }
+  .ratgeber-list li { padding: 8px 0; border-bottom: 1px solid var(--color-distant-sky); }
+  .ratgeber-list li:last-child { border-bottom: none; }
+  .ratgeber-list a { font-size: 14px; color: #2e2723; line-height: 1.4; transition: color .15s; }
+  .ratgeber-list a:hover { color: var(--color-action-azure); }
 
   @media (max-width: 1000px) {
     .split { grid-template-columns: 1fr; }

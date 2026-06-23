@@ -6,6 +6,7 @@ excerpt: "HTTPS ist Standard und ein leichter Ranking-Faktor. Was ein SSL-Zertif
 date: "2025-07-31"
 readingTime: "7 Min."
 gradient: "g1"
+relatedTools: ["semrush", "seobility"]
 ---
 
 HTTPS ist heute keine Kür mehr, sondern Pflicht. Seit Google 2014 das SSL-Zertifikat offiziell als Ranking-Signal eingeführt hat, zeigt die Search Console für ungesicherte HTTP-Seiten deutliche Hinweise auf Handlungsbedarf. 2026 ist eine Website ohne gültiges Zertifikat im Grunde nicht mehr wettbewerbsfähig.

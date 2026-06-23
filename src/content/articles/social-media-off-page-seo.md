@@ -6,6 +6,7 @@ excerpt: "Welche Rolle Social Signals für SEO spielen und wie soziale Reichweit
 date: "2025-10-19"
 readingTime: "5 Min."
 gradient: "g3"
+relatedTools: ["ahrefs", "semrush"]
 ---
 
 Social Media ist kein direkter Ranking-Faktor - Google hat das mehrfach bestätigt. Dennoch beeinflusst soziale Aktivität deine Sichtbarkeit spürbar, und zwar auf indirektem Weg. Wer das versteht, nutzt Social Media als Hebel fürs OffPage-SEO deutlich effizienter.

@@ -6,6 +6,7 @@ excerpt: "Content-Marketing und SEO greifen ineinander. So planst du Inhalte, di
 date: "2025-09-19"
 readingTime: "7 Min."
 gradient: "g6"
+relatedTools: ["semrush", "mangools"]
 ---
 
 Content-Marketing und SEO sind kein Entweder-oder. Beide Disziplinen verstärken sich gegenseitig: Gute Inhalte bringen organischen Traffic, und ohne technisch solides SEO bleibt selbst der beste Artikel unsichtbar. Wer beides zusammendenkt, baut nachhaltige Sichtbarkeit auf.

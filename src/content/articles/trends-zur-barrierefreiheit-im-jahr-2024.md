@@ -5,6 +5,7 @@ excerpt: "Barrierefreiheit wird 2024 zum Ranking- und Pflichtthema. Ein Überbli
 date: "2025-02-11"
 readingTime: "5 Min."
 gradient: "g2"
+relatedTools: ["semrush"]
 ---
 
 Barrierefreiheit ist kein Nischenthema mehr. Mit dem Barrierefreiheitsstärkungsgesetz (BFSG), das ab Juni 2025 für viele digitale Produkte und Dienstleistungen gilt, rückt das Thema auch in Deutschland verbindlich auf die Agenda. Wer jetzt handelt, ist nicht nur gesetzlich auf der sicheren Seite, sondern verbessert gleichzeitig die technische SEO-Basis seiner Website.

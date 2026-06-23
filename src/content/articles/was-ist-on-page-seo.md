@@ -6,6 +6,7 @@ excerpt: "OnPage-SEO umfasst alles, was du direkt auf deiner Seite optimieren ka
 date: "2025-03-23"
 readingTime: "4 Min."
 gradient: "g6"
+relatedTools: ["semrush", "seobility"]
 ---
 
 OnPage-SEO bezeichnet alle Maßnahmen, die du direkt auf deiner Website durchführst, um in Suchmaschinen besser sichtbar zu werden. Im Gegensatz zu OffPage-SEO (z.B. Linkaufbau) hast du hier die volle Kontrolle - kein Warten auf externe Partner, kein Abhängigkeitsverhältnis.

@@ -6,6 +6,7 @@ excerpt: "Der Einstieg in die Suchmaschinenoptimierung: Was SEO ist, wie Google 
 date: "2025-02-21"
 readingTime: "6 Min."
 gradient: "g3"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Suchmaschinenoptimierung klingt technisch - ist es auch ein bisschen - aber der grundlegende Gedanke ist einfach: Du hilfst Google zu verstehen, worum es auf deiner Seite geht, damit es dich relevanten Nutzern zeigt. Wer das Prinzip versteht, kann bereits mit wenigen gezielten Schritten messbare Fortschritte erzielen.

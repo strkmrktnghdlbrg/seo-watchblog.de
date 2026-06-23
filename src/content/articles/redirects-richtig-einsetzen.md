@@ -5,6 +5,7 @@ excerpt: "301 oder 302? Wann welche Weiterleitung sinnvoll ist und wie du Linkkr
 date: "2026-04-07"
 readingTime: "7 Min."
 gradient: "g2"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Redirects gehören zu den häufigsten technischen SEO-Maßnahmen - und zu den am häufigsten falsch eingesetzten. Wer 301 und 302 verwechselt oder Redirect-Ketten entstehen lässt, riskiert unnötige Linkkraft-Verluste und langsamere Ladezeiten.

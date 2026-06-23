@@ -5,6 +5,7 @@ excerpt: "Mit Content-Hubs bündelst du Themen zu thematischer Autorität. So pl
 date: "2026-04-17"
 readingTime: "8 Min."
 gradient: "g3"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Ein Content-Hub ist eine zentrale Themenanlaufstelle auf deiner Website: ein Pillar-Artikel deckt das Hauptthema breit ab, und mehrere Cluster-Artikel vertiefen einzelne Aspekte. Alle Seiten verlinken sich gegenseitig. Google erkennt dieses Muster als Signal für thematische Tiefe - und belohnt es mit besseren Rankings, weil die gesamte Themenseite an Autorität gewinnt, nicht nur einzelne Artikel.

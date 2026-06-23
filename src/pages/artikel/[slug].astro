@@ -9,11 +9,11 @@ export async function getStaticPaths() {
   const articles = await getCollection('articles', (e) => !e.data.draft);
   return articles.map((entry) => ({
     params: { slug: entry.id },
-    props: { entry },
+    props: { entry, allArticles: articles },
   }));
 }
 
-const { entry } = Astro.props;
+const { entry, allArticles } = Astro.props;
 const { Content } = await render(entry);
 
 const sectionLabels: Record<string, string> = {
@@ -55,6 +55,17 @@ const relatedTools = (
     (entry.data.relatedTools ?? []).map((slug) => getEntry('tools', slug))
   )
 ).filter(Boolean);
+
+// Geschwister-Artikel: gleicher Bereich + gleicher Cluster (falls vorhanden), ohne den aktuellen
+const siblingArticles = allArticles
+  .filter((a) => {
+    if (a.id === entry.id) return false;
+    if (a.data.section !== entry.data.section) return false;
+    if (entry.data.cluster) return a.data.cluster === entry.data.cluster;
+    return true;
+  })
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 4);
 
 const jsonLd = [
   articleLd({ title: entry.data.title, excerpt: entry.data.excerpt, date: entry.data.date, image: heroPhoto, url: `/artikel/${entry.id}/` }),
@@ -104,13 +115,19 @@ const jsonLd = [
             ))}
           </div>
         )}
-        <div class="side-card" style="margin-top:18px;">
-          <h4>Mehr aus dem {sectionLabels[section]}</h4>
-          <p style="font-size:14px;color:#5a524d;line-height:1.6;">
-            Alle Beiträge findest du in der Übersicht.
-            <a href={sectionHrefs[section]} style="color:var(--color-action-azure);">Zur Übersicht →</a>
-          </p>
-        </div>
+        {siblingArticles.length > 0 && (
+          <div class="side-card sibling-box" style="margin-top:18px;">
+            <h4>Mehr aus dem {sectionLabels[section] ?? section}</h4>
+            <ul class="sibling-list">
+              {siblingArticles.map((a) => (
+                <li>
+                  <a href={`/artikel/${a.id}/`}>{a.data.title}</a>
+                </li>
+              ))}
+            </ul>
+            <a class="sibling-all" href={sectionHrefs[section]}>Alle Beiträge →</a>
+          </div>
+        )}
       </aside>
     </div>
   </section>
@@ -140,5 +157,11 @@ const jsonLd = [
     .tools-box .tp-body strong { font-family: var(--font-serif); font-weight: 400; font-size: 17px; }
     .tools-box .tp-cat { font-size: 12px; color: var(--color-stone-gray); }
     .tools-box .tp-score { font-size: 13px; color: var(--color-action-azure); font-weight: 600; }
+    .sibling-list { list-style: none; padding: 0; margin: 0 0 12px; }
+    .sibling-list li { padding: 8px 0; border-bottom: 1px solid var(--color-distant-sky); }
+    .sibling-list li:last-child { border-bottom: none; }
+    .sibling-list a { font-size: 14px; color: #2e2723; line-height: 1.4; transition: color .15s; }
+    .sibling-list a:hover { color: var(--color-action-azure); }
+    .sibling-all { font-size: 13px; color: var(--color-action-azure); font-weight: 600; }
   </style>
 </BaseLayout>

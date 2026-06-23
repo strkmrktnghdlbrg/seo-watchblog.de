@@ -6,6 +6,7 @@ excerpt: "Featured Snippets bringen Sichtbarkeit über Position 1 hinaus. So str
 date: "2025-08-30"
 readingTime: "5 Min."
 gradient: "g4"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Featured Snippets - auch "Null-Position" oder "Position Zero" genannt - erscheinen über den organischen Ergebnissen und liefern Google-Nutzern direkt eine Antwort. Wer dort landet, gewinnt Sichtbarkeit, die organisch kaum zu überbieten ist.

@@ -6,6 +6,7 @@ excerpt: "Bloggen mit Strategie: Wie du Artikel planst, strukturierst und intern
 date: "2025-09-09"
 readingTime: "6 Min."
 gradient: "g5"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Ein Blog ohne SEO-Grundlage bleibt unsichtbar - egal wie gut die Inhalte sind. Wer organischen Traffic aufbauen will, muss Artikel von Anfang an so planen, dass Suchmaschinen und Leser gleichermassen profitieren. Das gelingt nicht durch einzelne Tricks, sondern durch das Zusammenspiel von Keyword-Strategie, sauberem On-Page-Setup und konsequenter interner Verlinkung.

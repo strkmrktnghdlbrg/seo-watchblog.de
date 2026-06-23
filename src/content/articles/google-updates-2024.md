@@ -5,6 +5,7 @@ excerpt: "Die wichtigsten Google-Core-Updates des Jahres 2024 und was sie für d
 date: "2025-05-12"
 readingTime: "4 Min."
 gradient: "g5"
+relatedTools: ["semrush"]
 ---
 
 2024 war eines der turbulentesten Jahre für SEO seit langem. Google rollte vier offizielle Core Updates aus - im März, August, September und November - und stieß mit dem "Helpful Content"-System endgültig in den Kern-Algorithmus vor. Wer bisher ohne Konsequenzen auf thin content oder generische AI-Massenproduktion setzte, merkte es spätestens im Frühjahr an seinen Keyword-Rankings.

@@ -6,6 +6,7 @@ excerpt: "Mit Dateinamen, Alt-Texten und moderner Komprimierung holst du mehr Si
 date: "2025-11-28"
 readingTime: "4 Min."
 gradient: "g1"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Bilder sind auf den meisten Websites ein unterschätzter SEO-Hebel. Suchmaschinen können Bildinhalte nicht direkt lesen - sie stützen sich auf Metadaten, Dateinamen und Kontext. Wer diese Stellschrauben sauber dreht, gewinnt Sichtbarkeit in der Google-Bildersuche und verbessert gleichzeitig Ladezeiten und Barrierefreiheit.

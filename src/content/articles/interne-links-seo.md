@@ -6,6 +6,7 @@ excerpt: "Interne Links verteilen Relevanz und führen Nutzer. So baust du eine 
 date: "2025-12-28"
 readingTime: "7 Min."
 gradient: "g4"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Interne Links gehören zu den wirkungsvollsten Onpage-Hebeln - und werden gleichzeitig am häufigsten unterschätzt. Wer eine durchdachte interne Verlinkung aufbaut, verteilt PageRank gezielt, hilft Google beim Crawlen aller Unterseiten und verbessert die Nutzerführung spürbar.

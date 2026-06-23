@@ -5,6 +5,7 @@ excerpt: "Wie du Google Analytics 4 einrichtest und die richtigen Berichte für 
 date: "2025-10-09"
 readingTime: "4 Min."
 gradient: "g2"
+relatedTools: ["semrush", "se-ranking"]
 ---
 
 Google Analytics 4 ist eines der wichtigsten kostenlosen Werkzeuge für die SEO-Analyse. Wer die richtigen Berichte kennt und regelmäßig auswertet, erkennt Potenziale schneller und trifft fundierte Entscheidungen statt zu raten.

@@ -6,6 +6,7 @@ excerpt: "Title und Meta-Description steuern, wie deine Seite in den Suchergebni
 date: "2025-06-01"
 readingTime: "6 Min."
 gradient: "g1"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Meta-Tags sind HTML-Elemente im `<head>` einer Seite, die Suchmaschinen Informationen über den Seiteninhalt liefern. Obwohl Nutzer sie nicht direkt sehen, haben sie erheblichen Einfluss darauf, ob und wie deine Seite in den Suchergebnissen erscheint.

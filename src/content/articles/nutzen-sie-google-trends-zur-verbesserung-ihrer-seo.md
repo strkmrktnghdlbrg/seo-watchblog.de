@@ -5,6 +5,7 @@ excerpt: "Google Trends zeigt saisonale Nachfrage und aufkommende Suchthemen. So
 date: "2025-02-01"
 readingTime: "4 Min."
 gradient: "g1"
+relatedTools: ["semrush", "mangools"]
 ---
 
 Google Trends ist ein kostenloses Werkzeug von Google, das die relative Suchnachfrage für Begriffe über die Zeit abbildet. Anders als klassische Keyword-Tools liefert es keine absoluten Suchvolumen, sondern zeigt, ob ein Thema an Interesse gewinnt oder verliert. Genau diese Dynamik macht es für Content-Planung und SEO-Strategie besonders wertvoll.

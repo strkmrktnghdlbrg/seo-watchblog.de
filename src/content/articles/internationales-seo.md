@@ -6,6 +6,7 @@ excerpt: "Mehrsprachige Sites richtig aufsetzen: hreflang, Domain-Strategie und 
 date: "2026-03-18"
 readingTime: "5 Min."
 gradient: "g6"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Wer mit seiner Website mehrere Länder oder Sprachräume ansprechen will, braucht eine durchdachte internationale SEO-Strategie. Anders als beim nationalen SEO geht es hier nicht nur um Keywords und Backlinks - es kommen technische, sprachliche und kulturelle Dimensionen hinzu, die zusammenspielen müssen.

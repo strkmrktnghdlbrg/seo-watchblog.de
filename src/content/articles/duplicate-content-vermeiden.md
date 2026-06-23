@@ -6,6 +6,7 @@ excerpt: "Doppelte Inhalte verwirren Suchmaschinen. Mit Canonical-Tags und saube
 date: "2025-06-21"
 readingTime: "8 Min."
 gradient: "g3"
+relatedTools: ["semrush", "seobility"]
 ---
 
 Doppelte Inhalte entstehen schneller als gedacht - und können dafür sorgen, dass Google falsche Seiten rankt oder Sichtbarkeit auf mehrere URLs aufteilt statt zu bündeln. Das Gute: Die häufigsten Ursachen lassen sich mit wenigen technischen Massnahmen beheben.
